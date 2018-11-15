@@ -9,10 +9,15 @@ namespace FurryPal.Models
 {
     public class SubscriptionPurchase
     {
-        public Guid Id { get; set; }
+        public SubscriptionPurchase()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+        
+        public string Id { get; set; }
 
         [ForeignKey("User")]
-        public Guid CustomerId { get; set; }
+        public string CustomerId { get; set; }
         public User Customer { get; set; }
 
         public DateTime InitialOrderDate { get; set; }

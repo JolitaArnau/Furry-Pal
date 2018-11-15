@@ -4,7 +4,12 @@ namespace FurryPal.Models
 {
     public class Address
     {
-        public Guid Id { get; set; }
+        public Address()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+        
+        public string Id { get; set; }
 
         public string ZipCode { get; set; }
 

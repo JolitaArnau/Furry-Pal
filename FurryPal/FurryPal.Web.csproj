@@ -9,10 +9,12 @@
         <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
         <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.1" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     </ItemGroup>
 
 
     <ItemGroup>
+      <ProjectReference Include="..\FurryPal.Common\FurryPal.Common.csproj" />
       <ProjectReference Include="..\FurryPal.Data\FurryPal.Data.csproj" />
       <ProjectReference Include="..\FurryPal.Models\FurryPal.Models.csproj" />
     </ItemGroup>
@@ -28,6 +30,7 @@
       <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
       <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
       <_ContentIncludedByDefault Remove="Views\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
     </ItemGroup>
 
 </Project>

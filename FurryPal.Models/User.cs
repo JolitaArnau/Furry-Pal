@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FurryPal.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<string>
     {
         public ICollection<Purchase> Purchases { get; set; }
 
         public ICollection<SubscriptionPurchase> SubscriptionPurchases { get; set; }
 
         [ForeignKey("Address")]
-        public Guid AddressId { get; set; }
+        public string AddressId { get; set; }
         public Address Address { get; set; }
     }
 }

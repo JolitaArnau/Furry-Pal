@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurryPal.Data.Migrations
 {
     [DbContext(typeof(FurryPalDbContext))]
-    [Migration("20181109074651_EntitySetup")]
-    partial class EntitySetup
+    [Migration("20181115153437_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("FurryPal.Models.Address", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CityName");
@@ -45,9 +45,8 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("FurryPal.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description");
 
@@ -60,10 +59,10 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("FurryPal.Models.Manufacturer", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("AddressId");
+                    b.Property<string>("AddressId");
 
                     b.Property<string>("Email");
 
@@ -78,14 +77,14 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("FurryPal.Models.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CategoryId");
+                    b.Property<string>("CategoryId");
 
                     b.Property<string>("Description");
 
-                    b.Property<Guid>("ManufacturerId");
+                    b.Property<string>("ManufacturerId");
 
                     b.Property<string>("Name");
 
@@ -93,13 +92,13 @@ namespace FurryPal.Data.Migrations
 
                     b.Property<string>("ProductCode");
 
-                    b.Property<Guid?>("PurchaseId");
+                    b.Property<string>("PurchaseId");
 
-                    b.Property<Guid?>("SaleId");
+                    b.Property<string>("SaleId");
 
                     b.Property<int>("StockQuantity");
 
-                    b.Property<Guid?>("SubscriptionPurchaseId");
+                    b.Property<string>("SubscriptionPurchaseId");
 
                     b.HasKey("Id");
 
@@ -118,12 +117,10 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("FurryPal.Models.Purchase", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CustomerId");
-
-                    b.Property<string>("CustomerId1");
+                    b.Property<string>("CustomerId");
 
                     b.Property<DateTime>("OrderDate");
 
@@ -133,14 +130,14 @@ namespace FurryPal.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Purchases");
                 });
 
             modelBuilder.Entity("FurryPal.Models.Sale", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Type");
@@ -152,12 +149,10 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("FurryPal.Models.SubscriptionPurchase", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CustomerId");
-
-                    b.Property<string>("CustomerId1");
+                    b.Property<string>("CustomerId");
 
                     b.Property<DateTime>("InitialOrderDate");
 
@@ -169,9 +164,64 @@ namespace FurryPal.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("SubscriptionPurchases");
+                });
+
+            modelBuilder.Entity("FurryPal.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("AddressId");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -216,62 +266,6 @@ namespace FurryPal.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -340,35 +334,22 @@ namespace FurryPal.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FurryPal.Models.User", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-
-                    b.ToTable("User");
-
-                    b.HasDiscriminator().HasValue("User");
-                });
-
             modelBuilder.Entity("FurryPal.Models.Manufacturer", b =>
                 {
                     b.HasOne("FurryPal.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressId");
                 });
 
             modelBuilder.Entity("FurryPal.Models.Product", b =>
                 {
                     b.HasOne("FurryPal.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("FurryPal.Models.Manufacturer", "Manufacturer")
                         .WithMany()
-                        .HasForeignKey("ManufacturerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ManufacturerId");
 
                     b.HasOne("FurryPal.Models.Purchase")
                         .WithMany("Products")
@@ -386,15 +367,22 @@ namespace FurryPal.Data.Migrations
             modelBuilder.Entity("FurryPal.Models.Purchase", b =>
                 {
                     b.HasOne("FurryPal.Models.User", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId1");
+                        .WithMany("Purchases")
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("FurryPal.Models.SubscriptionPurchase", b =>
                 {
                     b.HasOne("FurryPal.Models.User", "Customer")
+                        .WithMany("SubscriptionPurchases")
+                        .HasForeignKey("CustomerId");
+                });
+
+            modelBuilder.Entity("FurryPal.Models.User", b =>
+                {
+                    b.HasOne("FurryPal.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("CustomerId1");
+                        .HasForeignKey("AddressId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -407,7 +395,7 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("FurryPal.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -415,7 +403,7 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("FurryPal.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -428,7 +416,7 @@ namespace FurryPal.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("FurryPal.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -436,7 +424,7 @@ namespace FurryPal.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("FurryPal.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

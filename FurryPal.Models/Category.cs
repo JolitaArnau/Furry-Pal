@@ -1,8 +1,15 @@
+using System;
+
 namespace FurryPal.Models
 {
     public class Category
     {
-        public int Id { get; set; }
+        public Category()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+        
+        public string Id { get; set; }
 
         public string Name { get; set; }
 

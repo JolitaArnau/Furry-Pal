@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using FurryPal.Common;
 using Microsoft.AspNetCore.Mvc;
 using FurryPal.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FurryPal.Web.Controllers
 {
@@ -22,6 +24,7 @@ namespace FurryPal.Web.Controllers
             return View();
         }
 
+        [Authorize(Roles = RoleConstants.Administrator)]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -33,11 +36,5 @@ namespace FurryPal.Web.Controllers
         {
             return View();
         }
-
-//        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-//        public IActionResult Error()
-//        {
-//            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
-//        }
     }
 }

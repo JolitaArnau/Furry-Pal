@@ -1,4 +1,6 @@
-﻿namespace FurryPal.Data
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace FurryPal.Data
 {
     using System.IO;
     using Models;
@@ -7,7 +9,7 @@
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
 
-    public class FurryPalDbContext : IdentityDbContext
+    public class FurryPalDbContext : IdentityDbContext<User, IdentityRole, string>
     {
         public FurryPalDbContext(DbContextOptions<FurryPalDbContext> options)
             : base(options)
@@ -16,7 +18,7 @@
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<Category> Categories{ get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public DbSet<Address> Addresses { get; set; }
 

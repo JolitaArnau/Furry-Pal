@@ -5,7 +5,12 @@ namespace FurryPal.Models
 {
     public class Sale
     {
-        public Guid Id { get; set; }
+        public Sale()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+        
+        public string Id { get; set; }
 
         public string Type { get; set; }
 
