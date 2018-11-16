@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using FurryPal.Models.Common;
-using FurryPal.Models.Enums;
-
 namespace FurryPal.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+    using Common;
+    using Enums;
+
     public class SubscriptionPurchase
     {
         public SubscriptionPurchase()

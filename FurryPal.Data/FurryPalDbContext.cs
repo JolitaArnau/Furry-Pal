@@ -26,9 +26,15 @@ namespace FurryPal.Data
 
         public DbSet<Purchase> Purchases { get; set; }
 
-        public DbSet<SubscriptionPurchase> SubscriptionPurchases { get; set; }
+        public DbSet<SubscriptionPurchase> SubscribedPurchases { get; set; }
 
-        public DbSet<Sale> Sales { get; set; }
+        public DbSet<Sale> OnSale { get; set; }
+
+        public DbSet<ProductReview> ProductReviews { get; set; }
+
+        public DbSet<Receipt> Receipts { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
 
         public class FurryPalDbContextContextFactory
             : IDesignTimeDbContextFactory<FurryPalDbContext>

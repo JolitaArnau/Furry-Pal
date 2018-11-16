@@ -1,7 +1,7 @@
-using System;
-
 namespace FurryPal.Models
 {
+    using System;
+
     public class Address
     {
         public Address()

@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using FurryPal.Models.Enums;
-
 namespace FurryPal.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Enums;
+    
     public class Purchase
     {
         public Purchase()
