@@ -4,7 +4,7 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account.Manage
     using System.ComponentModel.DataAnnotations;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-    using FurryPal.Common;
+    using Common;
     using FurryPal.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
