@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FurryPal.Data;
-using FurryPal.Models;
-using FurryPal.Web.Middleware;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace FurryPal.Web
+﻿namespace FurryPal.Web
 {
+    using FurryPal.Data;
+    using FurryPal.Models;
+    using FurryPal.Web.Middleware;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -36,15 +31,15 @@ namespace FurryPal.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
+
             var connection = Configuration["ConnectionString:DefaultConnection"];
-            
+
             services.AddDbContext<FurryPalDbContext>(options => options.UseSqlServer(connection));
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<FurryPalDbContext>()
                 .AddDefaultTokenProviders();
-                                    
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddRazorPagesOptions(options =>
@@ -53,7 +48,7 @@ namespace FurryPal.Web
                     options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 });
-            
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
@@ -64,12 +59,19 @@ namespace FurryPal.Web
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin",
-                    authBuilder =>
-                    {
-                        authBuilder.RequireRole("Admin");
-                    });
+                    authBuilder => { authBuilder.RequireRole("Admin"); });
             });
 
+            // using Microsoft.AspNetCore.Identity.UI.Services;
+            services.AddSingleton<IEmailSender, EmailSender>(i =>
+                new EmailSender(
+                    Configuration["EmailSender:Host"],
+                    Configuration.GetValue<int>("EmailSender:Port"),
+                    Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                    Configuration["EmailSender:Username"],
+                    Configuration["EmailSender:Password"]
+                )
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +91,7 @@ namespace FurryPal.Web
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
-            
+
             app.UseMiddleware<SeederMiddleware>();
 
             app.UseMvc(routes =>
