@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using FurryPal.Common;
-using Microsoft.AspNetCore.Mvc;
-using FurryPal.Web.Models;
-using Microsoft.AspNetCore.Authorization;
-
-namespace FurryPal.Web.Controllers
+﻿namespace FurryPal.Web.Controllers
 {
+    using Common;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+
     public class HomeController : Controller
     {
         public IActionResult Index()

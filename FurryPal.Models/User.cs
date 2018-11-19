@@ -12,6 +12,10 @@ namespace FurryPal.Models
 
         public ICollection<Receipt> Receipts { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+        
         [ForeignKey("Address")] public string AddressId { get; set; }
         public Address Address { get; set; }
     }

@@ -22,21 +22,17 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
         private readonly FurryPalDbContext dbContext;
-
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
             FurryPalDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
             this.dbContext = dbContext;
         }
 
@@ -50,6 +46,14 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
@@ -76,7 +80,12 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account
             {
                 // TODO: extend registration with more props, such as fullname, address etc.
 
-                var user = new User {UserName = Input.Email, Email = Input.Email, Address = new Address()};
+                var user = new User
+                {
+                    UserName = $"{Input.FirstName}{Input.LastName}",
+                    Email = Input.Email,
+                    Address = new Address()
+                };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

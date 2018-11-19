@@ -17,8 +17,6 @@ namespace FurryPal.Models
 
         public string CityName { get; set; }
         
-        public string ProvinceName { get; set; }
-
         public string StreetName { get; set; }
 
         public int HouseNumber { get; set; }
