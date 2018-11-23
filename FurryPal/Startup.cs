@@ -2,6 +2,7 @@
 using FurryPal.Services;
 using FurryPal.Services.Categories;
 using FurryPal.Services.Contracts;
+using FurryPal.Services.Manufacturer;
 using FurryPal.Web.AutoMapper;
 
 namespace FurryPal.Web
@@ -43,6 +44,7 @@ namespace FurryPal.Web
             services.AddDbContext<FurryPalDbContext>(options => options.UseSqlServer(connection));
 
             services.AddTransient<ICategoryAdminService, CategoryAdminService>();
+            services.AddTransient<IManufacturerAdminService, ManufacturerAdminService>();
 
             // auto mapper config
             var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MapperProfile()));

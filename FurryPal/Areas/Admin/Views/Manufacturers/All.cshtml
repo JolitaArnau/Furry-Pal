@@ -1,7 +1,7 @@
-@model IEnumerable<FurryPal.Web.ViewModels.Categories.AllCategoriesViewModel>
+@model IEnumerable<AllManufacturersViewModel>
  
  @{
-     ViewData["Title"] = "All Categories";
+     ViewData["Title"] = "All Manufacturers";
      Layout = "_AdminLayout";
  }
  
@@ -11,6 +11,7 @@
  {
      <ul>
          <li>@category.Name</li>
-         <li>@category.Description</li>
+         <li>@category.Email</li>
+         <li>@category.PhoneNumber</li>
      </ul>
  }
