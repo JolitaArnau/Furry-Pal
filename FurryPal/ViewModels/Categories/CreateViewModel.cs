@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace FurryPal.Web.ViewModels.Categories
+
+
 {
     public class CreateViewModel
     {

@@ -20,7 +20,7 @@
             if (signInManager.IsSignedIn(User) &&
                 userManager.IsInRoleAsync(user, RoleConstants.Administrator).Result)
             {
-                return this.RedirectToAction("Dashboard", "Admin");
+                return this.RedirectToAction("Dashboard", "AdminBase", new {area = "Admin"});
             }
 
             return this.View();

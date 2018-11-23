@@ -26,17 +26,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+            <a asp-area="Admin" asp-controller="AdminBase" asp-action="Dashboard" class="navbar-brand">
                 <img id="home-icon" alt="Furry Pal" src="/icons/home-icon.png"/>
             </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a asp-controller="Admin" asp-action="Dashboard">Home</a>
+                    <a asp-area="Admin" asp-controller="AdminBase" asp-action="Dashboard">Home</a>
                 </li>
                 <li>
-                    <a asp-controller="Admin" asp-action="CreateCategory">Add Categories</a>
+                    <a asp-area="Admin" asp-controller="Categories" asp-action="CreateCategory">Add Categories</a>
                 </li>
                 <li>
                     <a asp-controller="" asp-action="">Add Manufacturers</a>
@@ -51,7 +51,7 @@
                     <a asp-controller="" asp-action="">All Manufacturers</a>
                 </li>
             </ul>
-            <partial name="_LoginPartial"/>
+            <partial name="_LoginPartial" /> 
         </div>
     </div>
 </nav>

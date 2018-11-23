@@ -33,6 +33,9 @@
       <_ContentIncludedByDefault Remove="Views\_ViewImports.cshtml" />
       <_ContentIncludedByDefault Remove="Views\_ViewStart.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Identity\Pages\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Admin\Categories\All.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Admin\Categories\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Admin\Products\Create.cshtml" />
     </ItemGroup>
 
 </Project>
