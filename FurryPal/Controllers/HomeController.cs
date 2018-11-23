@@ -1,34 +1,29 @@
 ﻿namespace FurryPal.Web.Controllers
 {
-    using Common;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
+    using Common;
+    using FurryPal.Models;
+    using Data;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager,
+            FurryPalDbContext dbContext) : base(userManager, signInManager, dbContext)
+        {
+        }
+
         public IActionResult Index()
         {
-            return View();
-        }
+            var user = userManager.GetUserAsync(User).Result;
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
+            if (signInManager.IsSignedIn(User) &&
+                userManager.IsInRoleAsync(user, RoleConstants.Administrator).Result)
+            {
+                return this.RedirectToAction("Dashboard", "Admin");
+            }
 
-            return View();
-        }
-
-        [Authorize(Roles = RoleConstants.Administrator)]
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return this.View();
         }
     }
 }

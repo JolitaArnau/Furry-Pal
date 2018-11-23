@@ -3,6 +3,14 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #fffffb;
+    margin: 0 0 100px;
+    
+}
+
+html {
+    position: relative;
+    min-height: 100%;
 }
 
 /* Wrapping element */
@@ -13,6 +21,41 @@ body {
 }
 
 .navbar-inverse {
-    background-color: #e0f7fa;
-    border-color: #e0f7fa;
+    background-color: #00695c;
+    border-color: #00695c;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #fffffb;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fffffb;
+}
+
+#home-icon {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+footer {
+    background-color: #00695c;
+    border-color: #00695c;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    color: #fffffb;
+    padding: 15px;
+}
+
+#email-verification{
+    color: #003d33!important;
+}
+
+a {
+    color: #003d33;
+    text-decoration: none;
 }

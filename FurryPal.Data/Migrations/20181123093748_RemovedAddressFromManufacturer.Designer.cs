@@ -4,14 +4,16 @@ using FurryPal.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FurryPal.Data.Migrations
 {
     [DbContext(typeof(FurryPalDbContext))]
-    partial class FurryPalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181123093748_RemovedAddressFromManufacturer")]
+    partial class RemovedAddressFromManufacturer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +52,7 @@ namespace FurryPal.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("FurryPal.Models.Manufacturer", b =>

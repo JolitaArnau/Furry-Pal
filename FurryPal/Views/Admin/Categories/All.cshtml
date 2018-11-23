@@ -1,0 +1,16 @@
+@model IEnumerable<FurryPal.Web.ViewModels.Categories.AllCategoriesViewModel>
+
+@{
+    ViewData["Title"] = "All Categories";
+    Layout = "_AdminLayout";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@foreach (var category in @Model)
+{
+    <ul>
+        <li>@category.Name</li>
+        <li>@category.Description</li>
+    </ul>
+}

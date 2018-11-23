@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
@@ -17,6 +18,7 @@
       <ProjectReference Include="..\FurryPal.Common\FurryPal.Common.csproj" />
       <ProjectReference Include="..\FurryPal.Data\FurryPal.Data.csproj" />
       <ProjectReference Include="..\FurryPal.Models\FurryPal.Models.csproj" />
+      <ProjectReference Include="..\FurryPal.Services\FurryPal.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>

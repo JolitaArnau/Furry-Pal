@@ -56,8 +56,8 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
-                MinimumLength = 6)]
+//            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
+//                MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -78,11 +78,11 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                // TODO: extend registration with more props, such as fullname, address etc.
-
                 var user = new User
                 {
-                    UserName = $"{Input.FirstName}{Input.LastName}",
+                    UserName = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
                     Email = Input.Email,
                     Address = new Address()
                 };

@@ -1,3 +1,5 @@
+using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,17 +39,23 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required] [Display(Name = "Country")] public string CountryName { get; set; }
+            [Display(Name = "Country")]
+            [StringLength(50)]
+            public string CountryName { get; set; }
 
-            [Required] [Display(Name = "City")] public string CityName { get; set; }
+            [Display(Name = "City")]
+            [StringLength(50)]
+            public string CityName { get; set; }
 
-            [Required]
             [Display(Name = "Zip Code")]
+            [StringLength(10)]
             public string ZipCode { get; set; }
 
-            [Required] [Display(Name = "Street")] public string StreetName { get; set; }
+            [Display(Name = "Street")]
+            [StringLength(50)]
+            public string StreetName { get; set; }
 
-            [Required]
+            [Range(1, Int32.MaxValue)]
             [Display(Name = "House Number")]
             public int HouseNumber { get; set; }
         }
@@ -79,6 +87,11 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account.Manage
             var userAddressId = user.AddressId;
 
             var userAddress = _dbContext.Addresses.FirstOrDefault(id => id.Id.Equals(userAddressId));
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             if (userAddress != null)
             {

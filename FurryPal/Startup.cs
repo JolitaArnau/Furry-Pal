@@ -1,4 +1,10 @@
-﻿namespace FurryPal.Web
+﻿using AutoMapper;
+using FurryPal.Services;
+using FurryPal.Services.Categories;
+using FurryPal.Services.Contracts;
+using FurryPal.Web.AutoMapper;
+
+namespace FurryPal.Web
 {
     using FurryPal.Data;
     using FurryPal.Models;
@@ -12,7 +18,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -36,6 +42,24 @@
 
             services.AddDbContext<FurryPalDbContext>(options => options.UseSqlServer(connection));
 
+            services.AddTransient<ICategoryAdminService, CategoryAdminService>();
+
+            // auto mapper config
+            var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MapperProfile()));
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+                options.Password.RequiredLength = 3;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredUniqueChars = 0;
+            });
+
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<FurryPalDbContext>()
                 .AddDefaultTokenProviders();
@@ -58,8 +82,8 @@
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("Admin",
-                    authBuilder => { authBuilder.RequireRole("Admin"); });
+                options.AddPolicy("Administrator",
+                    authBuilder => { authBuilder.RequireRole("Administrator"); });
             });
 
             // using Microsoft.AspNetCore.Identity.UI.Services;
