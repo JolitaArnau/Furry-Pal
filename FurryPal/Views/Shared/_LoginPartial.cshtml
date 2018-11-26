@@ -6,23 +6,24 @@
 
 @if (SignInManager.IsSignedIn(User) && User.IsInRole(RoleConstants.User))
 {
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hi, @UserManager.Users.FirstOrDefault().FirstName!</a>
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm" class="navbar-nav ml-auto">
+        
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hi, @UserManager.Users.FirstOrDefault().FirstName!</a>
             </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+            <li class="nav-item">
+                <button type="submit">Logout</button>
             </li>
         </ul>
     </form>
 }
 @if (SignInManager.IsSignedIn(User) && User.IsInRole(RoleConstants.Administrator))
 {  
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm" class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button type="submit">Logout</button>
             </li>
         </ul>
     </form>
@@ -30,12 +31,12 @@
 
 @if(!SignInManager.IsSignedIn(User))
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
         </li>
-        <li>
-            <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     </ul>
 }
