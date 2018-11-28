@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "All Categories";
-    Layout = "_AdminLayout";
 }
 
 @{
@@ -29,8 +28,8 @@
             <th scope="row">@index</th>
             <td>@category.Name</td>
             <td>@category.Description</td>
-            <td><a>X</a></td>
-            <td><a>E</a></td>
+            <td><a asp-action="EditCategory" asp-controller="Categories" asp-route-id="@category.Id">E</a></td>
+            <td><a asp-action="DeleteCategory" asp-controller="Categories" asp-route-id="@category.Id">X</a></td>
         </tr>
 
         index++;

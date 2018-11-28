@@ -24,7 +24,7 @@ namespace FurryPal.Web.Areas.Admin.Controllers
             this.categoryAdminService = categoryAdminService;
         }
 
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> AllCategories()
         {
             var categories = await this.categoryAdminService.GetAllCategoriesAsync();
 
@@ -53,7 +53,54 @@ namespace FurryPal.Web.Areas.Admin.Controllers
             await this.categoryAdminService.CreateCategoryAsync(categoryCreateViewModel.Name,
                 categoryCreateViewModel.Description);
 
-            return this.RedirectToAction("GetAllCategories", new {area = "Admin"});
+            return this.RedirectToAction("AllCategories");
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> EditCategory(string id)
+        {
+            var category = this.categoryAdminService.GetCategoryByIdAsync(id).Result;
+            
+            if (category == null)
+            {
+                return this.NotFound();
+            }
+                    
+            var editDeleteViewModel = this.mapper.Map<Category, EditDeleteViewModel>(category);
+    
+            return await Task.Run(() => this.View("Edit", editDeleteViewModel));
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> EditCategory(EditDeleteViewModel editDeleteViewModel)
+        {
+           await this.categoryAdminService.EditCategoryAsync(editDeleteViewModel.Id, editDeleteViewModel.Name,
+                editDeleteViewModel.Description);
+
+            return this.RedirectToAction("AllCategories");
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> DeleteCategory(string id)
+        {
+            var category = this.categoryAdminService.GetCategoryByIdAsync(id).Result;
+            
+            if (category == null)
+            {
+                return this.NotFound();
+            }
+                    
+            var editDeleteViewModel = this.mapper.Map<Category, EditDeleteViewModel>(category);
+    
+            return await Task.Run(() => this.View("Delete", editDeleteViewModel));
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> DeleteCategory(EditDeleteViewModel editDeleteViewModel)
+        {
+            await this.categoryAdminService.DeleteCategoryAsync(editDeleteViewModel.Id);
+
+            return this.RedirectToAction("AllCategories");
         }
     }
 }

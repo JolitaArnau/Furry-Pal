@@ -31,11 +31,37 @@
             }
         }
 
+        public async Task EditCategoryAsync(string id, string name, string description)
+        {
+            var category = await this.dbContext.Categories.FirstOrDefaultAsync(c => c.Id.Equals(id));
+
+            category.Name = name;
+            category.Description = description;
+
+            this.dbContext.Categories.Update(category);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteCategoryAsync(string id)
+        {
+            var category = await this.dbContext.Categories.FirstOrDefaultAsync(c => c.Id.Equals(id));
+
+            this.dbContext.Categories.Remove(category);
+            await this.dbContext.SaveChangesAsync();
+        }
+
         public Task<bool> CategoryExistsAsync(string name)
         {
             var exists = this.dbContext.Categories.AnyAsync(c => c.Name.Equals(name));
 
             return exists;
+        }
+
+        public async Task<Category> GetCategoryByIdAsync(string id)
+        {
+            var category = await this.dbContext.Categories.FirstOrDefaultAsync(c => c.Id.Equals(id));
+
+            return category;
         }
 
         public async Task<Category[]> GetAllCategoriesAsync()

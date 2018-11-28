@@ -11,5 +11,11 @@ namespace FurryPal.Services.Contracts
         Task<Category[]> GetAllCategoriesAsync();
 
         Task<bool> CategoryExistsAsync(string name);
+        
+        Task<Category> GetCategoryByIdAsync(string id);
+
+        Task EditCategoryAsync(string id, string name, string description);
+
+        Task DeleteCategoryAsync(string id);
     }
 }

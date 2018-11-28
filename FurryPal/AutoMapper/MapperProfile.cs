@@ -12,7 +12,13 @@ namespace FurryPal.Web.AutoMapper
         {
             this.CreateMap<Category, AllCategoriesViewModel>()
                 .ForMember(c => c.Name, cvm => cvm.MapFrom(m => m.Name))
-                .ForMember(c => c.Description, cvm => cvm.MapFrom(m => m.Description));
+                .ForMember(c => c.Description, cvm => cvm.MapFrom(m => m.Description))
+                .ForMember(c => c.Id, cvm => cvm.MapFrom(m => m.Id));
+            
+            this.CreateMap<Category, EditDeleteViewModel>()
+                .ForMember(c => c.Name, cvm => cvm.MapFrom(m => m.Name))
+                .ForMember(c => c.Description, cvm => cvm.MapFrom(m => m.Description))
+                .ForMember(c => c.Id, cvm => cvm.MapFrom(m => m.Id));
             
             this.CreateMap<Manufacturer, AllManufacturersViewModel>()
                 .ForMember(c => c.Name, cvm => cvm.MapFrom(m => m.Name))

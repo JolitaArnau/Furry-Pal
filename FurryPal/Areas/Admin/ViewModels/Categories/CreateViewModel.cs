@@ -1,7 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace FurryPal.Web.Areas.Admin.ViewModels.Categories
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateViewModel
     {        
         [Required]
