@@ -1,4 +1,4 @@
-namespace FurryPal.Web.ViewModels.Manufacturers
+namespace FurryPal.Web.Areas.Admin.ViewModels.Manufacturers
 {
     public class AllManufacturersViewModel
     {

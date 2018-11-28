@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
+using FurryPal.Common;
 using FurryPal.Data;
 using FurryPal.Models;
 using FurryPal.Services.Contracts;
-using FurryPal.Web.ViewModels.Categories;
+using FurryPal.Web.Areas.Admin.ViewModels.Categories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,10 +23,10 @@ namespace FurryPal.Web.Areas.Admin.Controllers
             this.mapper = mapper;
             this.categoryAdminService = categoryAdminService;
         }
-        
-        public IActionResult AllCategories()
+
+        public async Task<IActionResult> GetAllCategories()
         {
-            var categories = categoryAdminService.GetAllCategories();
+            var categories = await this.categoryAdminService.GetAllCategoriesAsync();
 
             var categoryViewModels = this.mapper.Map<Category[], IEnumerable<AllCategoriesViewModel>>(categories);
 
@@ -32,22 +34,26 @@ namespace FurryPal.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateCategory()
+        public async Task<IActionResult> CreateCategory()
         {
-            return this.View("Create");
+            return await Task.Run(() => this.View("Create"));
         }
 
         [HttpPost]
-        public IActionResult CreateCategory(CreateViewModel categoryCreateViewModel)
+        public async Task<IActionResult> CreateCategory(CreateViewModel categoryCreateViewModel)
         {
-            if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid ||
+                categoryAdminService.CategoryExistsAsync(categoryCreateViewModel.Name).Result)
             {
-                return this.View("Create", categoryCreateViewModel);
+                
+                this.ModelState.AddModelError("", string.Format(ErrorMessages.CategoryAlreadyExists, categoryCreateViewModel.Name));
+                return await Task.Run(() => this.View("Create", categoryCreateViewModel));
             }
 
-            this.categoryAdminService.CreateCategory(categoryCreateViewModel.Name, categoryCreateViewModel.Description);
+            await this.categoryAdminService.CreateCategoryAsync(categoryCreateViewModel.Name,
+                categoryCreateViewModel.Description);
 
-            return this.RedirectToAction("AllCategories", new {area = "Admin"});
+            return this.RedirectToAction("GetAllCategories", new {area = "Admin"});
         }
     }
 }

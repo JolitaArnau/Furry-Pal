@@ -3,11 +3,10 @@ using AutoMapper;
 using FurryPal.Data;
 using FurryPal.Models;
 using FurryPal.Services.Contracts;
-using FurryPal.Web.ViewModels.Categories;
-using FurryPal.Web.ViewModels.Manufacturers;
+using FurryPal.Web.Areas.Admin.ViewModels.Manufacturers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using CreateViewModel = FurryPal.Web.ViewModels.Manufacturers.CreateViewModel;
+using CreateViewModel = FurryPal.Web.Areas.Admin.ViewModels.Manufacturers.CreateViewModel;
 
 namespace FurryPal.Web.Areas.Admin.Controllers
 {

@@ -1,13 +1,18 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
-  /*TODO: choose a nice font */
-    
+    /*TODO: choose a nice font */
+
 }
 
 html {
     position: relative;
     min-height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 2rem!important;
+    margin-bottom: 2rem!important;
 }
 
 /* Wrapping element */
@@ -18,7 +23,7 @@ html {
 }
 
 .navbar {
-    background-color: #00695c!important;
+    background-color: #00695c !important;
     border-color: #00695c;
 }
 
@@ -48,11 +53,58 @@ footer {
     padding: 15px;
 }
 
-#email-verification{
-    color: #003d33!important;
+#email-verification {
+    color: #003d33 !important;
 }
 
 a {
     color: #003d33;
     text-decoration: none;
 }
+
+.text-danger {
+    background-color: rgba(244, 67, 54, 0.7) !important;
+    color: #fffffb !important;
+}
+
+body > div > div > div > div > section > form > div.text-danger.validation-summary-errors > ul {
+    list-style: none;
+    padding: 1em;
+}
+
+.btn {
+    border-radius: 0px;
+}
+
+.btn-primary {
+    background-color: #d7ccc8 !important;
+    border-color: #d7ccc8 !important;
+    color: #000000;
+}
+
+.btn-primary:hover {
+    color: #000000;
+}
+
+.btn-primary {
+    border-color: #d7ccc8 !important;
+    outline: none !important;
+    --box-shadow-color: #d7ccc8 !important;
+    box-shadow: 0 0 0 0.1rem #d7ccc8 !important;
+}
+
+.form-control:focus {
+    border-color: #d7ccc8 !important;
+    outline: none !important;
+    --box-shadow-color: #d7ccc8 !important;
+    box-shadow: 0 0 0 0.1rem #d7ccc8 !important;
+}
+
+.form-control:focus {
+    border-color: #d7ccc8 !important;
+    outline: none !important;
+    --box-shadow-color: #d7ccc8 !important;
+    box-shadow: 0 0 0 0.1rem #d7ccc8 !important;
+}
+
+

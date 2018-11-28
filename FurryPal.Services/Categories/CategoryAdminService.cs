@@ -1,10 +1,12 @@
 ﻿namespace FurryPal.Services.Categories
 {
-    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using Data;
     using Models;
     using Contracts;
-    
+
+
     public class CategoryAdminService : ICategoryAdminService
     {
         private readonly FurryPalDbContext dbContext;
@@ -14,7 +16,7 @@
             this.dbContext = dbContext;
         }
 
-        public void CreateCategory(string name, string description)
+        public async Task CreateCategoryAsync(string name, string description)
         {
             var category = new Category()
             {
@@ -22,16 +24,25 @@
                 Description = description
             };
 
-            if (!dbContext.Categories.Contains(category))
+            if (!this.CategoryExistsAsync(name).Result)
             {
-                this.dbContext.Categories.Add(category);
-                this.dbContext.SaveChanges();
+                await this.dbContext.Categories.AddAsync(category);
+                await this.dbContext.SaveChangesAsync();
             }
         }
 
-        public Category[] GetAllCategories()
+        public Task<bool> CategoryExistsAsync(string name)
         {
-            return this.dbContext.Categories.ToArray();
+            var exists = this.dbContext.Categories.AnyAsync(c => c.Name.Equals(name));
+
+            return exists;
+        }
+
+        public async Task<Category[]> GetAllCategoriesAsync()
+        {
+            var categories = await this.dbContext.Categories.ToArrayAsync();
+
+            return categories;
         }
     }
 }

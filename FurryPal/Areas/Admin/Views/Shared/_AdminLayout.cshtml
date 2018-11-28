@@ -6,9 +6,9 @@
     <title>@ViewData["Title"] - FurryPalSupplies</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-reboot.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/css/site.css"/>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-reboot.min.css" asp-append-version="true"/>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" hhref="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"
@@ -20,11 +20,10 @@
 <body>
 
 
-
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <a asp-controller="Home" asp-action="Index" class="navbar-brand">
         <img id="home-icon" alt="Furry Pal" src="/icons/home-icon.png"/>
-    </a> 
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -81,8 +80,9 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
     </script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/toastr.min.js"></script>
 </environment>
-
+@* @await Component.InvokeAsync("NToastNotify") *@
 @RenderSection("Scripts", required: false)
 </body>
 </html>

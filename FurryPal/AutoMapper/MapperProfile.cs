@@ -1,10 +1,10 @@
 using AutoMapper;
-using FurryPal.Web.ViewModels.Manufacturers;
+using FurryPal.Web.Areas.Admin.ViewModels.Categories;
+using FurryPal.Web.Areas.Admin.ViewModels.Manufacturers;
 
 namespace FurryPal.Web.AutoMapper
 {
     using FurryPal.Models;
-    using ViewModels.Categories;
 
     public class MapperProfile : Profile
     {

@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FurryPal.Common\FurryPal.Common.csproj" />
       <ProjectReference Include="..\FurryPal.Data\FurryPal.Data.csproj" />
       <ProjectReference Include="..\FurryPal.Models\FurryPal.Models.csproj" />
     </ItemGroup>

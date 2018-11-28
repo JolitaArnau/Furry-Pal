@@ -1,4 +1,4 @@
-namespace FurryPal.Web.ViewModels.Categories
+namespace FurryPal.Web.Areas.Admin.ViewModels.Categories
 {
     public class AllCategoriesViewModel
     {

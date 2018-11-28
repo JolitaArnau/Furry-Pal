@@ -1,11 +1,15 @@
+using System.Threading.Tasks;
+
 namespace FurryPal.Services.Contracts
 {
     using Models;
     
     public interface ICategoryAdminService
     {
-        void CreateCategory(string name, string description);
+        Task CreateCategoryAsync(string name, string description);
 
-        Category[] GetAllCategories();
+        Task<Category[]> GetAllCategoriesAsync();
+
+        Task<bool> CategoryExistsAsync(string name);
     }
 }

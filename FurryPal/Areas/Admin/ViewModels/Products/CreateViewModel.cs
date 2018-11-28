@@ -1,11 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using FurryPal.Models;
 
-namespace FurryPal.Web.ViewModels.Products
+namespace FurryPal.Web.Areas.Admin.ViewModels.Products
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    
     public class CreateViewModel
     {
         [Required]

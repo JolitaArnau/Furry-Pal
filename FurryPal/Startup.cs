@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
-using FurryPal.Services;
-using FurryPal.Services.Categories;
-using FurryPal.Services.Contracts;
-using FurryPal.Services.Manufacturer;
-using FurryPal.Web.AutoMapper;
 
 namespace FurryPal.Web
 {
-    using FurryPal.Data;
+    using Data;
     using FurryPal.Models;
-    using FurryPal.Web.Middleware;
+    using Middleware;
+    using Services.Categories;
+    using Services.Contracts;
+    using Services.Manufacturer;
+    using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -19,6 +18,7 @@ namespace FurryPal.Web
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using NToastNotify;
 
     public class Startup
     {
@@ -67,7 +67,13 @@ namespace FurryPal.Web
                 .AddDefaultTokenProviders();
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            services.AddMvc()
+                .AddNToastNotifyToastr(new ToastrOptions()
+                {
+                    ProgressBar = true,
+                    PositionClass = ToastPositions.TopRight
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddRazorPagesOptions(options =>
                 {
                     options.AllowAreas = true;
@@ -120,16 +126,17 @@ namespace FurryPal.Web
 
             app.UseMiddleware<SeederMiddleware>();
 
+            app.UseNToastNotify();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "areas",
                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-                
             });
         }
     }

@@ -11,8 +11,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
         <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.1" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+        <PackageReference Include="NToastNotify" Version="5.0.8" />
     </ItemGroup>
-
 
     <ItemGroup>
       <ProjectReference Include="..\FurryPal.Common\FurryPal.Common.csproj" />
@@ -36,6 +36,10 @@
       <_ContentIncludedByDefault Remove="Views\Admin\Categories\All.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Admin\Categories\Create.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Admin\Products\Create.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ViewModels" />
     </ItemGroup>
 
 </Project>

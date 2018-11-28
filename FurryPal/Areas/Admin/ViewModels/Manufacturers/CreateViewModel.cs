@@ -1,7 +1,7 @@
-namespace FurryPal.Web.ViewModels.Manufacturers
-{
-    using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
+namespace FurryPal.Web.Areas.Admin.ViewModels.Manufacturers
+{
     public class CreateViewModel
     {
         [Required] [Display(Name = "Manufacturer Company Name")] public string Name { get; set; }

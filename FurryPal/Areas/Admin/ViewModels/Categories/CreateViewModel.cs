@@ -1,11 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace FurryPal.Web.ViewModels.Categories
-
-
+namespace FurryPal.Web.Areas.Admin.ViewModels.Categories
 {
     public class CreateViewModel
-    {
+    {        
         [Required]
         [StringLength(50, ErrorMessage = "Name can only contain up to 50 characters.")]
         [Display(Name = "Name")]

@@ -1,16 +1,39 @@
-@model IEnumerable<FurryPal.Web.ViewModels.Categories.AllCategoriesViewModel>
- 
- @{
-     ViewData["Title"] = "All Categories";
-     Layout = "_AdminLayout";
- }
- 
- <h2>@ViewData["Title"]</h2>
- 
- @foreach (var category in @Model)
- {
-     <ul>
-         <li>@category.Name</li>
-         <li>@category.Description</li>
-     </ul>
- }
+@model IEnumerable<FurryPal.Web.Areas.Admin.ViewModels.Categories.AllCategoriesViewModel>
+
+@{
+    ViewData["Title"] = "All Categories";
+    Layout = "_AdminLayout";
+}
+
+@{
+    var index = 1;
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var category in @Model)
+    {
+        <tr>
+            <th scope="row">@index</th>
+            <td>@category.Name</td>
+            <td>@category.Description</td>
+            <td><a>X</a></td>
+            <td><a>E</a></td>
+        </tr>
+
+        index++;
+    }
+    </tbody>
+</table>
