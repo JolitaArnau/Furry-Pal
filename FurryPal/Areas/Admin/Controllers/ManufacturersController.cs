@@ -20,7 +20,7 @@ namespace FurryPal.Web.Areas.Admin.Controllers
 
         public ManufacturersController(UserManager<User> userManager, SignInManager<User> signInManager,
             FurryPalDbContext dbContext, IMapper mapper, IManufacturerAdminService manufacturerAdminService) : base(
-            userManager, signInManager, dbContext)
+            userManager, signInManager)
         {
             this.mapper = mapper;
             this.manufacturerAdminService = manufacturerAdminService;

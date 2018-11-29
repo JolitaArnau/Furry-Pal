@@ -1,12 +1,14 @@
+using System.Threading.Tasks;
+
 namespace FurryPal.Services.Contracts
 {
     using Models;
 
     public interface IProductAdminService
     {
-        void CreateProduct(string productCode, string name, string description, string categoryName,
-            string manufacturerName, int stockQuantity);
+        Task CreateProductAsync(string productCode, string name, string description, string categoryId,
+            string manufacturerId, decimal price,int stockQuantity);
 
-        Product[] GetAllProducts();
+        Task<Product[]> GetAllProductsAsync();
     }
 }

@@ -1,0 +1,55 @@
+@using FurryPal.Models
+@using FurryPal.Web.Areas.Admin.ViewModels.Products
+@model FurryPal.Web.Areas.Admin.ViewModels.Products.CreateViewModel
+
+@{
+    ViewData["Title"] = "Create Product";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <section>
+                <form asp-area="Admin" asp-controller="Products" asp-action="CreateProduct" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ProductCode"></label>
+                        <input asp-for="ProductCode" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Category"></label>
+                        <select class="form-control" asp-for="Category" asp-items="Model.Categories"></select>
+                    </div>
+                    @* <div class="form-group"> *@
+                    @*     <label asp-for="Description"></label> *@
+                    @*     <input asp-for="Description" class="form-control"/> *@
+                    @* </div> *@
+                    <div class="form-group">
+                        <label asp-for="Price"></label>
+                        <input type="number" asp-for="Price" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StockQuantity"></label>
+                        <input type="number" asp-for="StockQuantity" class="form-control"/>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary"><b>+</b> Add</button>
+                    </div>
+                </form>
+                <div class="form-group text-center">
+                    <button onclick="window.history.back()" class="btn btn-primary">Cancel</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

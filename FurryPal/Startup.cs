@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FurryPal.Services.Products;
 
 namespace FurryPal.Web
 {
@@ -45,6 +46,7 @@ namespace FurryPal.Web
 
             services.AddTransient<ICategoryAdminService, CategoryAdminService>();
             services.AddTransient<IManufacturerAdminService, ManufacturerAdminService>();
+            services.AddTransient<IProductAdminService, ProductAdminService>();
 
             // auto mapper config
             var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MapperProfile()));

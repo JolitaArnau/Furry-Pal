@@ -18,7 +18,7 @@ namespace FurryPal.Web.Areas.Admin.Controllers
 
         public CategoriesController(UserManager<User> userManager, SignInManager<User> signInManager,
             FurryPalDbContext dbContext, IMapper mapper, ICategoryAdminService categoryAdminService) : base(userManager,
-            signInManager, dbContext)
+            signInManager)
         {
             this.mapper = mapper;
             this.categoryAdminService = categoryAdminService;

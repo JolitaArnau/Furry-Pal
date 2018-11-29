@@ -8,8 +8,7 @@
 
     public class HomeController : BaseController
     {
-        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager,
-            FurryPalDbContext dbContext) : base(userManager, signInManager, dbContext)
+        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager) : base(userManager, signInManager)
         {
         }
 

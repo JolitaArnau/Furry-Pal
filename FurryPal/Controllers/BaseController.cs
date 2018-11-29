@@ -9,14 +9,11 @@ namespace FurryPal.Web.Controllers
     {
         protected readonly UserManager<User> userManager;
         protected readonly SignInManager<User> signInManager;
-        protected readonly FurryPalDbContext dbContext;
 
-        public BaseController(UserManager<User> userManager, SignInManager<User> signInManager,
-            FurryPalDbContext dbContext)
+        public BaseController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.dbContext = dbContext;
         }
     }
 }

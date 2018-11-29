@@ -10,16 +10,15 @@ namespace FurryPal.Web.Areas.Admin.Controllers
 
     [Authorize(Roles = RoleConstants.Administrator)]
     [Area("Admin")]
-    public class AdminBaseController : BaseController
-    {
-        public AdminBaseController(UserManager<User> userManager, SignInManager<User> signInManager,
-            FurryPalDbContext dbContext) : base(userManager, signInManager, dbContext)
-        {
-        }
-        
-        public IActionResult Dashboard()
-        {
-            return this.View("Dashboard");
-        }
-    }
-}
+     public class AdminBaseController : BaseController
+     {
+         public AdminBaseController(UserManager<User> userManager, SignInManager<User> signInManager) : base(userManager, signInManager)
+         {
+         }
+         
+         public IActionResult Dashboard()
+         {
+             return this.View("Dashboard");
+         }
+     }
+ }
