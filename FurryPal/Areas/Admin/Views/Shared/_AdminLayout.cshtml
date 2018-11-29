@@ -19,8 +19,7 @@
 </head>
 <body>
 
-
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md">
     <a asp-controller="Home" asp-action="Index" class="navbar-brand">
         <img id="home-icon" alt="Furry Pal" src="/icons/home-icon.png"/>
     </a>
@@ -32,24 +31,42 @@
             <li class="nav-item">
                 <a class="nav-link" asp-area="Admin" asp-controller="AdminBase" asp-action="Dashboard">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="Categories" asp-action="CreateCategory">Add Categories</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="Categories" asp-action="AllCategories">All Categories</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="Manufacturers" asp-action="CreateManufacturer">Add Manufacturers</a>
-            </li>
+            <div class="d-flex">
+                <div class="dropdown mr-1">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                        Categories
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Categories" asp-action="CreateCategory">Add Categories</a>
+                        <a class="dropdown-item"class="nav-link" asp-area="Admin" asp-controller="Categories" asp-action="AllCategories">All Categories</a>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="dropdown mr-1">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                        Manufacturers
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Manufacturers" asp-action="CreateManufacturer">Add Manufacturers</a>
+                        <a class="dropdown-item"class="nav-link" asp-area="Admin" asp-controller="Manufacturers" asp-action="AllManufacturers">All Categories</a>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="dropdown mr-1">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                        Products
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="" asp-action="">Add Products</a>
+                        <a class="dropdown-item"class="nav-link" asp-area="Admin" asp-controller="" asp-action="">All Products</a>
+                    </div>
+                </div>
+            </div>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="" asp-action="">Search</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="" asp-action="">All Products</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="" asp-action="">All Manufacturers</a>
-            </li>
+            </li>          
         </ul>
         <partial name="_LoginPartial"/>
     </div>
@@ -83,9 +100,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
     </script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script src="~/js/toastr.min.js"></script>
 </environment>
-@* @await Component.InvokeAsync("NToastNotify") *@
 @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -2,7 +2,7 @@
 for details on configuring this project to bundle and minify static web assets. */
 body {
     /*TODO: choose a nice font */
-
+    color: #4e555b;
 }
 
 html {
@@ -10,9 +10,14 @@ html {
     min-height: 100%;
 }
 
+hr {
+    background:  #a69b97;
+    height: .03rem;
+}
+
 h1, h2, h3, h4, h5, h6 {
-    margin-top: 2rem!important;
-    margin-bottom: 2rem!important;
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
 }
 
 /* Wrapping element */
@@ -31,6 +36,10 @@ h1, h2, h3, h4, h5, h6 {
     color: #fffffb;
 }
 
+.nav-link:hover {
+    color: #fffffb;
+}
+
 .navbar-brand {
     color: #fffffb;
 }
@@ -40,17 +49,8 @@ h1, h2, h3, h4, h5, h6 {
     height: 1.5em;
 }
 
-footer {
-    background-color: #00695c;
-    border-color: #00695c;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 50px;
-    width: 100%;
-    overflow: hidden;
-    color: #fffffb;
-    padding: 15px;
+.dropdown-item:hover {
+    background-color: #d7ccc8;
 }
 
 #email-verification {
@@ -67,19 +67,23 @@ a {
     color: #fffffb !important;
 }
 
-body > div > div > div > div > section > form > div.text-danger.validation-summary-errors > ul {
-    list-style: none;
-    padding: 1em;
+body > div > div > div > div > section > form > div.text-danger.validation-summary-errors > ul > li {
+    margin: 0 0 3px 0;
+    list-style: square;
 }
 
 .btn {
     border-radius: 0px;
+    background-color: transparent;
+    color: #fffffb;
 }
 
 .btn-primary {
     background-color: #d7ccc8 !important;
     border-color: #d7ccc8 !important;
-    color: #000000;
+    color: black;
+    height: 3em;
+    width: 8em;
 }
 
 .btn-primary:hover {
@@ -91,6 +95,28 @@ body > div > div > div > div > section > form > div.text-danger.validation-summa
     outline: none !important;
     --box-shadow-color: #d7ccc8 !important;
     box-shadow: 0 0 0 0.1rem #d7ccc8 !important;
+    height: 3em;
+    width: 8em;
+}
+
+.btn-warning {
+    background-color: rgba(255, 152, 0, 0.7);
+    outline: none !important;
+    --box-shadow-color: rgba(255, 152, 0, 0.7) !important;
+    box-shadow: 0 0 0 0.1rem rgba(255, 152, 0, 0.7) !important;
+}
+
+.btn-danger {
+    background-color: rgba(244, 67, 54, 0.7) !important;
+    outline: none !important;
+    --box-shadow-color: rgba(244, 67, 54, 0.7) !important;
+    box-shadow: 0 0 0 0.1rem rgba(244, 67, 54, 0.7) !important;
+    height: 3em;
+    width: 8em;
+}
+
+.form-control {
+    border-color: #d7ccc8 !important;
 }
 
 .form-control:focus {
@@ -98,13 +124,34 @@ body > div > div > div > div > section > form > div.text-danger.validation-summa
     outline: none !important;
     --box-shadow-color: #d7ccc8 !important;
     box-shadow: 0 0 0 0.1rem #d7ccc8 !important;
+    background-color: transparent;
 }
 
-.form-control:focus {
-    border-color: #d7ccc8 !important;
-    outline: none !important;
-    --box-shadow-color: #d7ccc8 !important;
-    box-shadow: 0 0 0 0.1rem #d7ccc8 !important;
+li.active.nav-item.account-manage {
+    background-color: #d7ccc8;
+    border-radius: .25rem;
 }
 
+
+.account-manage > .nav-link {
+    color: black;
+}
+
+.nav flex-column {
+    margin-bottom: 2em;
+}
+
+
+footer {
+    background-color: #00695c;
+    border-color: #00695c;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    overflow: hidden;
+    color: #fffffb;
+    padding: 15px;
+}
 

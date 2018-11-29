@@ -4,29 +4,34 @@
     ViewData["Title"] = "Create Manufacturer";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2 class="text-center">@ViewData["Title"]</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form asp-area="Admin" asp-controller="Manufacturers" asp-action="CreateManufacturer" method="post">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <section>
+                <form asp-area="Admin" asp-controller="Manufacturers" asp-action="CreateManufacturer" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control"/>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary"><b>+</b> Add</button>
+                    </div>
+                </form>
+                <div class="form-group text-center">
+                    <button onclick="window.history.back()" class="btn btn-primary">Cancel</button>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="PhoneNumber"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Add</button>
-                </div>
-            </form>
-        </section>
+            </section>
+        </div>
     </div>
 </div>
