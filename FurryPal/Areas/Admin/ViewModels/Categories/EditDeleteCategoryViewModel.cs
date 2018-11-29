@@ -2,10 +2,9 @@ namespace FurryPal.Web.Areas.Admin.ViewModels.Categories
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class EditDeleteViewModel
+    public class EditDeleteCategoryViewModel
     {
         public string Id { get; set; }
-
 
         [Required]
         [StringLength(50, ErrorMessage = "Name can only contain up to 50 characters.")]

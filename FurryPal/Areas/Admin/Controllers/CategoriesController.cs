@@ -66,16 +66,16 @@ namespace FurryPal.Web.Areas.Admin.Controllers
                 return this.NotFound();
             }
                     
-            var editDeleteViewModel = this.mapper.Map<Category, EditDeleteViewModel>(category);
+            var editDeleteViewModel = this.mapper.Map<Category, EditDeleteCategoryViewModel>(category);
     
             return await Task.Run(() => this.View("Edit", editDeleteViewModel));
         }
         
         [HttpPost]
-        public async Task<IActionResult> EditCategory(EditDeleteViewModel editDeleteViewModel)
+        public async Task<IActionResult> EditCategory(EditDeleteCategoryViewModel editDeleteCategoryViewModel)
         {
-           await this.categoryAdminService.EditCategoryAsync(editDeleteViewModel.Id, editDeleteViewModel.Name,
-                editDeleteViewModel.Description);
+           await this.categoryAdminService.EditCategoryAsync(editDeleteCategoryViewModel.Id, editDeleteCategoryViewModel.Name,
+                editDeleteCategoryViewModel.Description);
 
             return this.RedirectToAction("AllCategories");
         }
@@ -90,15 +90,15 @@ namespace FurryPal.Web.Areas.Admin.Controllers
                 return this.NotFound();
             }
                     
-            var editDeleteViewModel = this.mapper.Map<Category, EditDeleteViewModel>(category);
+            var editDeleteViewModel = this.mapper.Map<Category, EditDeleteCategoryViewModel>(category);
     
             return await Task.Run(() => this.View("Delete", editDeleteViewModel));
         }
         
         [HttpPost]
-        public async Task<IActionResult> DeleteCategory(EditDeleteViewModel editDeleteViewModel)
+        public async Task<IActionResult> DeleteCategory(EditDeleteCategoryViewModel editDeleteCategoryViewModel)
         {
-            await this.categoryAdminService.DeleteCategoryAsync(editDeleteViewModel.Id);
+            await this.categoryAdminService.DeleteCategoryAsync(editDeleteCategoryViewModel.Id);
 
             return this.RedirectToAction("AllCategories");
         }

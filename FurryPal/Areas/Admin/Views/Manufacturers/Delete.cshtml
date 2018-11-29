@@ -1,7 +1,7 @@
-@model FurryPal.Web.Areas.Admin.ViewModels.Categories.EditDeleteCategoryViewModel
+@model FurryPal.Web.Areas.Admin.ViewModels.Manufacturers.EditDeleteManufacturerViewModel
 
 @{
-    ViewData["Title"] = "Delete Category";
+    ViewData["Title"] = "Delete Manufacturer";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
@@ -11,14 +11,18 @@
     <div class="row justify-content-center">
         <div class="col-6">
             <section>
-                <form asp-area="Admin" asp-controller="Categories" asp-action="DeleteCategory" method="post">
+                <form asp-area="Admin" asp-controller="Manufacturers" asp-action="DeleteManufacturer" method="post">
                     <div class="form-group">
                         <label asp-for="Name"></label>
                         <input asp-for="Name" class="form-control" disabled value="@Model.Name"/>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Description"></label>
-                        <input asp-for="Description" class="form-control" disabled value="@Model.Description"/>
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" disabled value="@Model.Email"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" disabled value="@Model.PhoneNumber"/>
                     </div>
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-danger">Delete</button>

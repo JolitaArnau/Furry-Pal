@@ -1,11 +1,21 @@
+using System.Threading.Tasks;
+
 namespace FurryPal.Services.Contracts
 {
     using Models;
     
     public interface IManufacturerAdminService
     {
-        void CreateManufacturer(string name, string email, string phoneNumber);
+        Task CreateManufacturerAsync(string name, string email, string phoneNumber);
 
-        Manufacturer[] GetAllManufacturers();
+        Task<Manufacturer[]> GetAllManufacturersAsync();
+        
+        Task<bool> ManufacturerExistsAsync(string name);
+        
+        Task<Manufacturer> GetManufacturerByIdAsync(string id);
+
+        Task EditManufacturerAsync(string id, string name, string email, string phoneNumber);
+
+        Task DeleteManufacturerAsync(string id);
     }
 }

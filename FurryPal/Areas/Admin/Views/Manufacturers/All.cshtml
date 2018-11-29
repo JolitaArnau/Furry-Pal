@@ -1,18 +1,48 @@
 @model IEnumerable<FurryPal.Web.Areas.Admin.ViewModels.Manufacturers.AllManufacturersViewModel>
- 
- @{
-     ViewData["Title"] = "All Manufacturers";
- }
- 
- <h2>@ViewData["Title"]</h2>
- 
- @foreach (var category in @Model)
- {
-     <ul>
-         <li>@category.Name</li>
-         <li>@category.Email</li>
-         <li>@category.PhoneNumber</li>
-     </ul>
- }
 
-<h1>hiiiii</h1>
+@{
+    ViewData["Title"] = "All Manufacturers";
+}
+
+
+@{
+    var index = 1;
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Company Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    @foreach (var manufacturer in @Model)
+    {
+        <tr>
+            <th scope="row">@index</th>
+            <td>@manufacturer.Name</td>
+            <td>@manufacturer.Email</td>
+            <td>@manufacturer.PhoneNumber</td>
+            <td>
+                <a asp-action="EditManufacturer" asp-controller="Manufacturers" asp-route-id="@manufacturer.Id">E</a>
+            </td>
+            <td>
+                <a asp-action="DeleteManufacturer" asp-controller="Manufacturers" asp-route-id="@manufacturer.Id">X</a>
+            </td>
+        </tr>
+
+        index++;
+    }
+
+
+    </tbody>
+</table>

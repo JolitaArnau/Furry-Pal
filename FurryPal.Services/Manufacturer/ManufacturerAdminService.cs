@@ -1,6 +1,8 @@
 namespace FurryPal.Services.Manufacturer
 {
     using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using Contracts;
     using Models;
     using Data;
@@ -14,7 +16,7 @@ namespace FurryPal.Services.Manufacturer
             this.dbContext = dbContext;
         }
 
-        public void CreateManufacturer(string name, string email, string phoneNumber)
+        public async Task CreateManufacturerAsync(string name, string email, string phoneNumber)
         {
             var manufacturer = new Manufacturer()
             {
@@ -25,14 +27,50 @@ namespace FurryPal.Services.Manufacturer
 
             if (!dbContext.Manufacturers.Contains(manufacturer))
             {
-                this.dbContext.Manufacturers.Add(manufacturer);
-                this.dbContext.SaveChanges();
+                await this.dbContext.Manufacturers.AddAsync(manufacturer);
+                await this.dbContext.SaveChangesAsync();
             }
         }
 
-        public Manufacturer[] GetAllManufacturers()
+        public async Task EditManufacturerAsync(string id, string name, string email, string phoneNumber)
         {
-            return this.dbContext.Manufacturers.ToArray();
+            var manufacturer = await this.dbContext.Manufacturers.FirstOrDefaultAsync(c => c.Id.Equals(id));
+
+            manufacturer.Name = name;
+            manufacturer.Email = email;
+            manufacturer.PhoneNumber = phoneNumber;
+
+            this.dbContext.Manufacturers.Update(manufacturer);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteManufacturerAsync(string id)
+        {
+            var manufacturer = await GetManufacturerByIdAsync(id);
+
+            this.dbContext.Manufacturers.Remove(manufacturer);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public Task<bool> ManufacturerExistsAsync(string name)
+        {
+            var exists = this.dbContext.Manufacturers.AnyAsync(c => c.Name.Equals(name));
+
+            return exists;
+        }
+
+        public async Task<Manufacturer> GetManufacturerByIdAsync(string id)
+        {
+            var manufacturer = await this.dbContext.Manufacturers.FirstOrDefaultAsync(c => c.Id.Equals(id));
+
+            return manufacturer;
+        }
+
+        public async Task<Manufacturer[]> GetAllManufacturersAsync()
+        {
+            var manufacturers = await this.dbContext.Manufacturers.ToArrayAsync();
+
+            return manufacturers;
         }
     }
 }

@@ -32,8 +32,8 @@
         }
 
         public async Task EditCategoryAsync(string id, string name, string description)
-        {
-            var category = await this.dbContext.Categories.FirstOrDefaultAsync(c => c.Id.Equals(id));
+        {            
+            var category = await GetCategoryByIdAsync(id);
 
             category.Name = name;
             category.Description = description;
