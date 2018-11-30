@@ -12,7 +12,7 @@ namespace FurryPal.Web.Areas.Admin.Controllers
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using CreateViewModel = ViewModels.Manufacturers.CreateViewModel;
-    
+
     public class ManufacturersController : AdminBaseController
     {
         private readonly IMapper mapper;
@@ -43,13 +43,17 @@ namespace FurryPal.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public  async Task<IActionResult>  CreateManufacturer(CreateViewModel createViewModel)
+        public async Task<IActionResult> CreateManufacturer(CreateViewModel createViewModel)
         {
-            if (!this.ModelState.IsValid ||
-                this.manufacturerAdminService.ManufacturerExistsAsync(createViewModel.Name).Result)
+            if (!this.ModelState.IsValid)
+            {
+                return this.View("Create", createViewModel);
+            }
+
+            if (this.manufacturerAdminService.ManufacturerExistsAsync(createViewModel.Name).Result)
             {
                 this.ModelState.AddModelError("",
-                    string.Format(ErrorMessages.CategoryAlreadyExists, createViewModel.Name));
+                    string.Format(ErrorMessages.ManufacturerAlreadyExists, createViewModel.Name));
                 return this.View("Create", createViewModel);
             }
 
@@ -59,22 +63,22 @@ namespace FurryPal.Web.Areas.Admin.Controllers
 
             return this.RedirectToAction("AllManufacturers");
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> EditManufacturer(string id)
         {
             var manufacturer = this.manufacturerAdminService.GetManufacturerByIdAsync(id).Result;
-            
+
             if (manufacturer == null)
             {
                 return this.NotFound();
             }
-                    
+
             var editDeleteViewModel = this.mapper.Map<Manufacturer, EditDeleteManufacturerViewModel>(manufacturer);
-    
+
             return await Task.Run(() => this.View("Edit", editDeleteViewModel));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> EditManufacturer(EditDeleteManufacturerViewModel editDeleteViewModel)
         {
@@ -83,22 +87,22 @@ namespace FurryPal.Web.Areas.Admin.Controllers
 
             return this.RedirectToAction("AllManufacturers");
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> DeleteManufacturer(string id)
         {
             var category = this.manufacturerAdminService.GetManufacturerByIdAsync(id).Result;
-            
+
             if (category == null)
             {
                 return this.NotFound();
             }
-                    
+
             var editDeleteViewModel = this.mapper.Map<Manufacturer, EditDeleteManufacturerViewModel>(category);
-    
+
             return await Task.Run(() => this.View("Delete", editDeleteViewModel));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> DeleteManufacturer(EditDeleteManufacturerViewModel editDeleteViewModel)
         {
@@ -106,6 +110,5 @@ namespace FurryPal.Web.Areas.Admin.Controllers
 
             return this.RedirectToAction("AllManufacturers");
         }
-
     }
 }

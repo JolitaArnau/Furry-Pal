@@ -42,10 +42,13 @@ namespace FurryPal.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateViewModel categoryCreateViewModel)
         {
-            if (!this.ModelState.IsValid ||
-                categoryAdminService.CategoryExistsAsync(categoryCreateViewModel.Name).Result)
+            if (!this.ModelState.IsValid)
             {
-                
+                return await Task.Run(() => this.View("Create", categoryCreateViewModel));
+            }
+
+            if (this.categoryAdminService.CategoryExistsAsync(categoryCreateViewModel.Name).Result)
+            {
                 this.ModelState.AddModelError("", string.Format(ErrorMessages.CategoryAlreadyExists, categoryCreateViewModel.Name));
                 return await Task.Run(() => this.View("Create", categoryCreateViewModel));
             }
