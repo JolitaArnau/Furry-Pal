@@ -1,4 +1,6 @@
-﻿namespace FurryPal.Services.Categories
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace FurryPal.Services.Categories
 {
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;

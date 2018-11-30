@@ -1,8 +1,11 @@
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FurryPal.Services.Products
 {
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
     using Data;
     using Models;
     using Contracts;
@@ -11,26 +14,27 @@ namespace FurryPal.Services.Products
     {
         private readonly FurryPalDbContext dbContext;
         private readonly ICategoryAdminService categoryAdminService;
-        private readonly IManufacturerAdminService manufacturerService;
+        private readonly IManufacturerAdminService manufacturerAdminService;
 
         public ProductAdminService(FurryPalDbContext dbContext, ICategoryAdminService categoryAdminService,
             IManufacturerAdminService manufacturerAdminService)
         {
             this.dbContext = dbContext;
             this.categoryAdminService = categoryAdminService;
-            this.manufacturerService = manufacturerAdminService;
+            this.manufacturerAdminService = manufacturerAdminService;
         }
 
         public async Task CreateProductAsync(string productCode, string name, string description, string categoryId,
-            string manufacturerId, decimal price, int stockQuantity)
+            string manufacturerId, decimal price,
+            int stockQuantity)
         {
             var product = new Product()
             {
                 ProductCode = productCode,
                 Name = name,
                 Description = description,
-                Category = categoryAdminService.GetCategoryByIdAsync(categoryId).Result,
-                Manufacturer = manufacturerService.GetManufacturerByIdAsync(manufacturerId).Result,
+                Category = this.categoryAdminService.GetCategoryByIdAsync(categoryId).Result,
+                Manufacturer = this.manufacturerAdminService.GetManufacturerByIdAsync(manufacturerId).Result,
                 Price = price,
                 StockQuantity = stockQuantity
             };
@@ -42,6 +46,43 @@ namespace FurryPal.Services.Products
             }
         }
 
+        public async Task<Product[]> GetAllProductsAsync()
+        {
+            var products = await this.dbContext.Products.ToArrayAsync();
+
+            return products;
+        }
+
+        public async Task EditProductAsync(string id, string productCode, string name, string description,
+            decimal price, int stockQuantity)
+        {
+            var product = await GetProductByIdAsync(id);
+
+            product.ProductCode = productCode;
+            product.Name = name;
+            product.Description = description;
+            product.Price = price;
+            product.StockQuantity = product.StockQuantity;
+
+            this.dbContext.Products.Update(product);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteProductAsync(string id)
+        {
+            var product = await this.dbContext.Products.FirstOrDefaultAsync(c => c.Id.Equals(id));
+
+            this.dbContext.Products.Remove(product);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Product> GetProductByIdAsync(string id)
+        {
+            var product = this.dbContext.Products.FirstOrDefaultAsync(p => p.Id.Equals(id)).Result;
+
+            return product;
+        }
+
         public Task<bool> ProductExistsAsync(string name)
         {
             var exists = this.dbContext.Categories.AnyAsync(c => c.Name.Equals(name));
@@ -49,9 +90,36 @@ namespace FurryPal.Services.Products
             return exists;
         }
 
-        public Task<Product[]> GetAllProductsAsync()
+        public List<SelectListItem> GetCategories()
         {
-            throw new System.NotImplementedException();
+            var dbCategories = new List<Category>(dbContext.Categories);
+
+            var listItems = new List<SelectListItem>();
+
+            foreach (var category in dbCategories)
+            {
+                var selectListItem = new SelectListItem {Value = category.Id, Text = category.Name};
+
+                listItems.Add(selectListItem);
+            }
+
+            return listItems;
+        }
+
+        public List<SelectListItem> GetManufacturers()
+        {
+            var dbManufacturers = new List<Manufacturer>(dbContext.Manufacturers);
+
+            var listItems = new List<SelectListItem>();
+
+            foreach (var category in dbManufacturers)
+            {
+                var selectListItem = new SelectListItem {Value = category.Id, Text = category.Name};
+
+                listItems.Add(selectListItem);
+            }
+
+            return listItems;
         }
     }
 }

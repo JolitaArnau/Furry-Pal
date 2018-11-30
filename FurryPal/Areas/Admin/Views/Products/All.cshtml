@@ -1,0 +1,57 @@
+@model IEnumerable<FurryPal.Web.Areas.Admin.ViewModels.Products.AllProductsViewModel>
+
+@{
+    ViewData["Title"] = "All Products";
+}
+
+
+@{
+    var index = 1;
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">ProductCode</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Category</th>
+        <th scope="col">Manufacturer</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock Quantity</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    @foreach (var product in @Model)
+    {
+        <tr>
+            <th scope="row">@index</th>
+            <td>@product.ProductCode</td>
+            <td>@product.Name</td>
+            <td>@product.Description</td>
+            <td>@product.CategoryId</td>
+            <td>@product.ManufacturerId</td>
+            <td>€ @product.Price</td>
+            <td>@product.StockQuantity</td>
+            <td>
+                <a asp-action="EditProduct" asp-controller="Products" asp-route-id="@product.Id">E</a>
+            </td>
+            <td>
+                <a asp-action="DeleteProduct" asp-controller="Products" asp-route-id="@product.Id">X</a>
+              
+            </td>
+        </tr>
+
+        index++;
+    }
+
+
+    </tbody>
+</table>

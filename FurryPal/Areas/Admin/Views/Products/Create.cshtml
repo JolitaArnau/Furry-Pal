@@ -1,6 +1,6 @@
 @using FurryPal.Models
 @using FurryPal.Web.Areas.Admin.ViewModels.Products
-@model FurryPal.Web.Areas.Admin.ViewModels.Products.CreateViewModel
+@model FurryPal.Web.Areas.Admin.ViewModels.Products.ProductBindingModel
 
 @{
     Layout = "_AdminLayout";
@@ -31,10 +31,10 @@
                         <label asp-for="Category"></label>
                         <select class="form-control" asp-for="Category" asp-items="Model.Categories"></select>
                     </div>
-                    @* <div class="form-group"> *@
-                    @*     <label asp-for="Description"></label> *@
-                    @*     <input asp-for="Description" class="form-control"/> *@
-                    @* </div> *@
+                    <div class="form-group">
+                        <label asp-for="Manufacturer"></label>
+                        <select class="form-control" asp-for="Manufacturer" asp-items="Model.Manufacturers"></select>
+                    </div>
                     <div class="form-group">
                         <label asp-for="Price"></label>
                         <input type="number" asp-for="Price" class="form-control"/>

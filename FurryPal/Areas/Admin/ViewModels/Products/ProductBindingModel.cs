@@ -1,17 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
 namespace FurryPal.Web.Areas.Admin.ViewModels.Products
 {
-    public class CreateViewModel
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
+    public class ProductBindingModel
     {
-        public CreateViewModel(List<SelectListItem> items)
+        public ProductBindingModel()
         {
-            this.Categories = new List<SelectListItem>(items);
         }
-        
+
+        public ProductBindingModel(List<SelectListItem> categories, List<SelectListItem> manufacturers)
+        {
+            this.Categories = new List<SelectListItem>(categories);
+            this.Manufacturers = new List<SelectListItem>(manufacturers);
+        }
+
+        public string Id { get; set; }
+
         [Required]
         [RegularExpression(@"(#[\d+]+)(\w+)", ErrorMessage =
             "The product code should start with a #, followed by the article code, coming from the manufacturer and the product name itself.")]
@@ -26,15 +33,19 @@ namespace FurryPal.Web.Areas.Admin.ViewModels.Products
         [Required]
         [Display(Name = "Product Description")]
         public string Description { get; set; }
-        
+
         [Required]
         [Display(Name = "Select a category")]
         public string Category { get; set; }
 
-        public List<SelectListItem> Categories { get; set; }
+        [Required]
+        [Display(Name = "Select a manufacturer")]
+        public string Manufacturer { get; set; }
 
-//        [Display(Name = "Select a manufacturer")]
-//        public IEnumerable<SelectListItem> Manufacturers { get; set; }
+        public List<SelectListItem> Categories { get; }
+
+        public List<SelectListItem> Manufacturers { get; }
+
 
         [Required] [Range(1, Double.MaxValue)] public decimal Price { get; set; }
 

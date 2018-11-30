@@ -1,0 +1,45 @@
+@model FurryPal.Web.Areas.Admin.ViewModels.Products.ProductBindingModel
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <section>
+                <form asp-area="Admin" asp-controller="Products" asp-action="DeleteProduct" method="post">
+                    <div class="form-group">
+                        <label asp-for="ProductCode"></label>
+                        <input asp-for="ProductCode" class="form-control" disabled value="@Model.ProductCode"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" disabled value="@Model.Name"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control" disabled value="@Model.Description"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price"></label>
+                        <input asp-for="Price" class="form-control" disabled value="@Model.Price"/>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StockQuantity"></label>
+                        <input asp-for="StockQuantity" class="form-control" disabled value="@Model.StockQuantity"/>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+                <div class="form-group text-center">
+                    <button onclick="window.history.back()" class="btn btn-primary">Cancel</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
