@@ -4,7 +4,10 @@ namespace FurryPal.Web.Areas.Admin.ViewModels.Manufacturers
 {
     public class CreateViewModel
     {
-        [Required] [Display(Name = "Manufacturer Company Name")] public string Name { get; set; }
+        [Required]
+        [StringLength(50, ErrorMessage = "Name can only contain up to 50 characters.")]
+        [Display(Name = "Manufacturer Company Name")]
+        public string Name { get; set; }
 
         [Required]
         [EmailAddress]
