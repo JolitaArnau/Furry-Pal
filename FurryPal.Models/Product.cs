@@ -24,6 +24,8 @@ namespace FurryPal.Models
 
         public decimal Price { get; set; }
 
+        public string ImageUrl { get; set; }
+
         [ForeignKey("Manufacturer")] public string ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
 

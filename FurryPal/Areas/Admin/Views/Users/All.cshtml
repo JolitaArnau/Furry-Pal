@@ -1,0 +1,50 @@
+@using System.Linq
+@using FurryPal.Common
+@using FurryPal.Models
+@using FurryPal.Web.Areas.Admin.ViewModels.Users
+@using Microsoft.AspNetCore.Identity
+@model FurryPal.Web.Areas.Admin.ViewModels.Users.UserViewModel
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "All Users";
+    var index = 1;
+}
+<h1 class="text-center">All Users</h1>
+<hr />
+<table class="table w-75 mx-auto">
+    <thead>
+    <tr class="row">
+        <th class="col-md-1">#</th>
+        <th class="col-md-5">Name</th>
+        <th class="col-md-6 text-center">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in this.ViewData["Users"] as IEnumerable<UserViewModel>)
+    {
+        <tr class="row">
+            <th class="col-md-1">@index</th>
+            <td class="col-md-5">@user.Username</td>
+            <td class="col-md-6">
+                <div class="form-inline text-center justify-content-around">
+                    @if (await this.UserManager.IsInRoleAsync(this.UserManager.Users.FirstOrDefault(u => u.UserName == user.Username), RoleConstants.Administrator))
+                    {
+                        <form asp-controller="Users" asp-action="DemoteUser" method="post" class="text-center">
+                            <input type="hidden" asp-for="Id" value="@user.Id"/>
+                            <button type="submit" class="btn btn-primary" value="Demote">Demote</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="Users" asp-action="PromoteUser" method="post" class="text-center">
+                            <input type="hidden" asp-for="Id" value="@user.Id"/>
+                            <button type="submit" class="btn btn-primary" value="Promote">Promote</button>
+                        </form>
+                    }
+                </div>
+            </td>
+        </tr>
+        index++;
+    }
+    </tbody>
+</table>

@@ -1,4 +1,6 @@
 using AutoMapper;
+using FurryPal.Web.Areas.Admin.ViewModels.Users;
+
 namespace FurryPal.Web.AutoMapper
 {
     using FurryPal.Models;
@@ -50,6 +52,11 @@ namespace FurryPal.Web.AutoMapper
                 .ForMember(p => p.Manufacturer, vm => vm.MapFrom(m => m.ManufacturerId))
                 .ForMember(p => p.Price, vm => vm.MapFrom(m => m.Price))
                 .ForMember(p => p.StockQuantity, vm => vm.MapFrom(m => m.StockQuantity));
+            
+            this.CreateMap<User, UserViewModel>()
+                .ForMember(uvm => uvm.Id, x => x.MapFrom(u => u.Id))
+                .ForMember(uvm => uvm.Username, x => x.MapFrom(u => u.UserName));
+
         }
     }
 }

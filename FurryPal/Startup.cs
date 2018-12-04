@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FurryPal.Services.Products;
+using FurryPal.Services.Users;
 
 namespace FurryPal.Web
 {
@@ -19,7 +20,6 @@ namespace FurryPal.Web
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using NToastNotify;
 
     public class Startup
     {
@@ -47,6 +47,7 @@ namespace FurryPal.Web
             services.AddTransient<ICategoryAdminService, CategoryAdminService>();
             services.AddTransient<IManufacturerAdminService, ManufacturerAdminService>();
             services.AddTransient<IProductAdminService, ProductAdminService>();
+            services.AddTransient<IUserAdminService, UserAdminService>();
 
             // auto mapper config
             var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MapperProfile()));
@@ -69,12 +70,7 @@ namespace FurryPal.Web
                 .AddDefaultTokenProviders();
 
 
-            services.AddMvc()
-                .AddNToastNotifyToastr(new ToastrOptions()
-                {
-                    ProgressBar = true,
-                    PositionClass = ToastPositions.TopRight
-                })
+            services.AddMvc(options => { options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddRazorPagesOptions(options =>
                 {
@@ -127,8 +123,6 @@ namespace FurryPal.Web
             app.UseCookiePolicy();
 
             app.UseMiddleware<SeederMiddleware>();
-
-            app.UseNToastNotify();
 
             app.UseMvc(routes =>
             {
