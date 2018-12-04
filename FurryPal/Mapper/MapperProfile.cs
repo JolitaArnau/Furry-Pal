@@ -1,13 +1,12 @@
 using AutoMapper;
+using FurryPal.Models;
+using FurryPal.Web.Areas.Admin.ViewModels.Categories;
+using FurryPal.Web.Areas.Admin.ViewModels.Manufacturers;
+using FurryPal.Web.Areas.Admin.ViewModels.Products;
 using FurryPal.Web.Areas.Admin.ViewModels.Users;
 
-namespace FurryPal.Web.AutoMapper
+namespace FurryPal.Web.Mapper
 {
-    using FurryPal.Models;
-    using Areas.Admin.ViewModels.Categories;
-    using Areas.Admin.ViewModels.Manufacturers;
-    using Areas.Admin.ViewModels.Products;
-
     public class MapperProfile : Profile
     {
         public MapperProfile()
@@ -41,7 +40,8 @@ namespace FurryPal.Web.AutoMapper
                 .ForMember(p => p.CategoryId, vm => vm.MapFrom(m => m.CategoryId))
                 .ForMember(p => p.ManufacturerId, vm => vm.MapFrom(m => m.ManufacturerId))
                 .ForMember(p => p.Price, vm => vm.MapFrom(m => m.Price))
-                .ForMember(p => p.StockQuantity, vm => vm.MapFrom(m => m.StockQuantity));
+                .ForMember(p => p.StockQuantity, vm => vm.MapFrom(m => m.StockQuantity))
+                .ForMember(p => p.ImageUrl, vm => vm.MapFrom(m => m.ImageUrl));
             
             this.CreateMap<Product, ProductBindingModel>()
                 .ForMember(p => p.Id, vm => vm.MapFrom(m => m.Id))
@@ -51,7 +51,8 @@ namespace FurryPal.Web.AutoMapper
                 .ForMember(p => p.Category, vm => vm.MapFrom(m => m.CategoryId))
                 .ForMember(p => p.Manufacturer, vm => vm.MapFrom(m => m.ManufacturerId))
                 .ForMember(p => p.Price, vm => vm.MapFrom(m => m.Price))
-                .ForMember(p => p.StockQuantity, vm => vm.MapFrom(m => m.StockQuantity));
+                .ForMember(p => p.StockQuantity, vm => vm.MapFrom(m => m.StockQuantity))
+                .ForMember(p => p.ImageUrl, vm => vm.MapFrom(m => m.ImageUrl));
             
             this.CreateMap<User, UserViewModel>()
                 .ForMember(uvm => uvm.Id, x => x.MapFrom(u => u.Id))

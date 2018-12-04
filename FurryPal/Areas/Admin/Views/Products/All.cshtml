@@ -2,10 +2,6 @@
 
 @{
     ViewData["Title"] = "All Products";
-}
-
-
-@{
     var index = 1;
 }
 
@@ -22,6 +18,7 @@
         <th scope="col">Manufacturer</th>
         <th scope="col">Price</th>
         <th scope="col">Stock Quantity</th>
+        <th scope="col">Pic</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
     </tr>
@@ -40,6 +37,8 @@
             <td>@product.ManufacturerId</td>
             <td>€ @product.Price</td>
             <td>@product.StockQuantity</td>
+            <td>
+                <img src="@product.ImageUrl" alt="@product.Name"/></td>
             <td>
                 <a asp-action="EditProduct" asp-controller="Products" asp-route-id="@product.Id">E</a>
             </td>

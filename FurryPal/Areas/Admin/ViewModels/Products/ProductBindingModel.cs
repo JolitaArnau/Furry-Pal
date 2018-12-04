@@ -50,5 +50,8 @@ namespace FurryPal.Web.Areas.Admin.ViewModels.Products
         [Required] [Range(1, Double.MaxValue)] public decimal Price { get; set; }
 
         [Required] [Range(1, Int32.MaxValue)] public int StockQuantity { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        public string ImageUrl { get; set; }
     }
 }

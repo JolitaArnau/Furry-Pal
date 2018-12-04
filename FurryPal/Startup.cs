@@ -1,16 +1,7 @@
-﻿using AutoMapper;
-using FurryPal.Services.Products;
-using FurryPal.Services.Users;
+﻿using CloudinaryDotNet;
 
 namespace FurryPal.Web
 {
-    using Data;
-    using FurryPal.Models;
-    using Middleware;
-    using Services.Categories;
-    using Services.Contracts;
-    using Services.Manufacturer;
-    using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -20,6 +11,17 @@ namespace FurryPal.Web
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using AutoMapper;
+    using Mapper;
+    using Data;
+    using FurryPal.Models;
+    using Middleware;
+    using Services.Categories;
+    using Services.Contracts;
+    using Services.Manufacturer;
+    using Services.Products;
+    using Services.Users;
+
 
     public class Startup
     {
@@ -53,6 +55,14 @@ namespace FurryPal.Web
             var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MapperProfile()));
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            // cloudinary - used for storing media content outside of the local application
+            var cloudName = Configuration["Media:Cloudinary:CloudName"];
+            var apiKey = Configuration["Media:Cloudinary:Api_Key"];
+            var apiSecret = Configuration["Media:Cloudinary:Api_Secret"];
+            var cloudinaryAccount= new Account(cloudName, apiKey, apiSecret);
+            var cloudinary = new Cloudinary(cloudinaryAccount);
+            services.AddSingleton(cloudinary);
 
             services.Configure<IdentityOptions>(options =>
             {

@@ -1,4 +1,6 @@
 using System.Linq;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace FurryPal.Services.Products
 {
@@ -15,18 +17,20 @@ namespace FurryPal.Services.Products
         private readonly FurryPalDbContext dbContext;
         private readonly ICategoryAdminService categoryAdminService;
         private readonly IManufacturerAdminService manufacturerAdminService;
+        private readonly Cloudinary cloudinary;
 
         public ProductAdminService(FurryPalDbContext dbContext, ICategoryAdminService categoryAdminService,
-            IManufacturerAdminService manufacturerAdminService)
+            IManufacturerAdminService manufacturerAdminService, Cloudinary cloudinary)
         {
             this.dbContext = dbContext;
             this.categoryAdminService = categoryAdminService;
             this.manufacturerAdminService = manufacturerAdminService;
+            this.cloudinary = cloudinary;
         }
 
         public async Task CreateProductAsync(string productCode, string name, string description, string categoryId,
             string manufacturerId, decimal price,
-            int stockQuantity)
+            int stockQuantity, string imageUrl)
         {
             var product = new Product()
             {
@@ -36,8 +40,17 @@ namespace FurryPal.Services.Products
                 Category = this.categoryAdminService.GetCategoryByIdAsync(categoryId).Result,
                 Manufacturer = this.manufacturerAdminService.GetManufacturerByIdAsync(manufacturerId).Result,
                 Price = price,
-                StockQuantity = stockQuantity
+                StockQuantity = stockQuantity,
             };
+
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(imageUrl)
+            };
+            var uploadResult = cloudinary.Upload(uploadParams);
+
+            product.ImageUrl = uploadResult.Uri.ToString();
+
 
             if (!this.ProductExistsAsync(name).Result)
             {
@@ -85,7 +98,7 @@ namespace FurryPal.Services.Products
 
         public Task<bool> ProductExistsAsync(string name)
         {
-            var exists = this.dbContext.Categories.AnyAsync(c => c.Name.Equals(name));
+            var exists = this.dbContext.Products.AnyAsync(c => c.Name.Equals(name));
 
             return exists;
         }

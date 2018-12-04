@@ -60,7 +60,7 @@ namespace FurryPal.Web.Areas.Admin.Controllers
             await this.productAdminService.CreateProductAsync(createProductViewModel.ProductCode,
                 createProductViewModel.Name, createProductViewModel.Description, createProductViewModel.Category,
                 createProductViewModel.Manufacturer, createProductViewModel.Price,
-                createProductViewModel.StockQuantity);
+                createProductViewModel.StockQuantity, createProductViewModel.ImageUrl);
 
             return this.RedirectToAction("AllProducts");
         }
@@ -93,17 +93,17 @@ namespace FurryPal.Web.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteProduct(string id)
         {
             var product = this.productAdminService.GetProductByIdAsync(id).Result;
-            
+
             if (product == null)
             {
                 return this.NotFound();
             }
-                    
+
             var model = this.mapper.Map<Product, ProductBindingModel>(product);
-    
+
             return await Task.Run(() => this.View("Delete", model));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> DeleteProduct(ProductBindingModel model)
         {
@@ -111,6 +111,7 @@ namespace FurryPal.Web.Areas.Admin.Controllers
 
             return this.RedirectToAction("AllProducts");
         }
+
         public List<SelectListItem> GetCategories()
         {
             var categories = this.productAdminService.GetCategories();
