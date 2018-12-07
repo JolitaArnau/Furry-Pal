@@ -1,7 +1,18 @@
+@using FurryPal.Models
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<FurryPal.Web.Areas.Admin.ViewModels.Products.AllProductsViewModel>
+
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "_AdminLayout";
 }
 
+
+@inject UserManager<User> UserManager
+
 <h2>@ViewData["Title"]</h2>
-<h3>Enjoy your work</h3>
+<h3>Hello, @UserManager.Users.FirstOrDefault().FirstName! Enjoy your work today!</h3>
+<div class="container-fluid">
+    <h6>Recent Orders</h6>
+    <p>TO DO: find a way to display recent user orders</p>
+</div>

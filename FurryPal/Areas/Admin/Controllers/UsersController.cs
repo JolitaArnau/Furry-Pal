@@ -1,12 +1,12 @@
-using AutoMapper;
 namespace FurryPal.Web.Areas.Admin.Controllers
 {
     using System.Collections.Generic;
     using FurryPal.Models;
-    using FurryPal.Services.Contracts;
-    using FurryPal.Web.Areas.Admin.ViewModels.Users;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using AutoMapper;
+    using Services.Contracts;
+    using ViewModels.Users;
 
     public class UsersController : AdminBaseController
     {

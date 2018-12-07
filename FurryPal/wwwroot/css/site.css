@@ -3,6 +3,8 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     /*TODO: choose a nice font */
     color: #4e555b;
+    font-family: 'Work Sans', sans-serif!important;
+
 }
 
 html {
@@ -82,8 +84,6 @@ body > div > div > div > div > section > form > div.text-danger.validation-summa
     background-color: #d7ccc8 !important;
     border-color: #d7ccc8 !important;
     color: black;
-    height: 3em;
-    width: 8em;
 }
 
 .btn-primary:hover {
@@ -95,8 +95,6 @@ body > div > div > div > div > section > form > div.text-danger.validation-summa
     outline: none !important;
     --box-shadow-color: #d7ccc8 !important;
     box-shadow: 0 0 0 0.1rem #d7ccc8 !important;
-    height: 3em;
-    width: 8em;
 }
 
 .btn-warning {
@@ -104,8 +102,6 @@ body > div > div > div > div > section > form > div.text-danger.validation-summa
     outline: none !important;
     --box-shadow-color: rgba(255, 152, 0, 0.7) !important;
     box-shadow: 0 0 0 0.1rem rgba(255, 152, 0, 0.7) !important;
-    height: 3em;
-    width: 8em;
 }
 
 .btn-danger {
@@ -113,8 +109,6 @@ body > div > div > div > div > section > form > div.text-danger.validation-summa
     outline: none !important;
     --box-shadow-color: rgba(244, 67, 54, 0.7) !important;
     box-shadow: 0 0 0 0.1rem rgba(244, 67, 54, 0.7) !important;
-    height: 3em;
-    width: 8em;
 }
 
 .form-control {

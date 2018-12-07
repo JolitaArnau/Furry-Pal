@@ -6,36 +6,41 @@
 
 @Html.Partial("_StatusMessage", Model.StatusMessage)
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Address Information</h4>
-            <div class="form-group">
-                <label asp-for="Input.CountryName"></label>
-                <input asp-for="Input.CountryName" class="form-control"/>
-                <span asp-validation-for="Input.CountryName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.CityName"></label>
-                <input asp-for="Input.CityName" class="form-control"/>
-                <span asp-validation-for="Input.CityName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ZipCode"></label>
-                <input asp-for="Input.ZipCode" class="form-control"/>
-                <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.StreetName"></label>
-                <input asp-for="Input.StreetName" class="form-control"/>
-                <span asp-validation-for="Input.StreetName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.HouseNumber"></label>
-                <input asp-for="Input.HouseNumber" class="form-control"/>
-                <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Save</button>
-        </form>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h4>Address Information</h4>
+                <div class="form-group">
+                    <label asp-for="Input.CountryName"></label>
+                    <input asp-for="Input.CountryName" class="form-control"/>
+                    <span asp-validation-for="Input.CountryName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.CityName"></label>
+                    <input asp-for="Input.CityName" class="form-control"/>
+                    <span asp-validation-for="Input.CityName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ZipCode"></label>
+                    <input asp-for="Input.ZipCode" class="form-control"/>
+                    <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.StreetName"></label>
+                    <input asp-for="Input.StreetName" class="form-control"/>
+                    <span asp-validation-for="Input.StreetName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.HouseNumber"></label>
+                    <input asp-for="Input.HouseNumber" class="form-control"/>
+                    <span asp-validation-for="Input.HouseNumber" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary text-center">Save</button>
+            </form>
+            <br/>
+            <button onclick="window.history.back()" class="btn btn-primary">Cancel</button>
+        </div>
     </div>
 </div>
