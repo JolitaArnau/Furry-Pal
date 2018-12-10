@@ -22,7 +22,7 @@
 <body>
 
 <nav class="navbar navbar-expand-md">
-    <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+    <a asp-controller="AdminBase" asp-action="Dashboard" class="navbar-brand">
         <img id="home-icon" alt="Furry Pal" src="/icons/home-icon.png"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -31,7 +31,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" asp-area="Admin" asp-controller="AdminBase" asp-action="Dashboard">Home</a>
+                <a class="nav-link" asp-controller="AdminBase" asp-action="Dashboard">Home</a>
             </li>
             <div class="d-flex">
                 <div class="dropdown mr-1">
@@ -39,8 +39,8 @@
                         Categories
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Categories" asp-action="CreateCategory">Add Categories</a>
-                        <a class="dropdown-item"class="nav-link" asp-area="Admin" asp-controller="Categories" asp-action="AllCategories">All Categories</a>
+                        <a class="dropdown-item" asp-controller="Categories" asp-action="CreateCategory">Add Categories</a>
+                        <a class="dropdown-item"class="nav-link" asp-controller="Categories" asp-action="AllCategories">All Categories</a>
                     </div>
                 </div>
             </div>
@@ -50,8 +50,8 @@
                         Manufacturers
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Manufacturers" asp-action="CreateManufacturer">Add Manufacturers</a>
-                        <a class="dropdown-item"class="nav-link" asp-area="Admin" asp-controller="Manufacturers" asp-action="AllManufacturers">All Manufacturers</a>
+                        <a class="dropdown-item" asp-controller="Manufacturers" asp-action="CreateManufacturer">Add Manufacturers</a>
+                        <a class="dropdown-item"class="nav-link" asp-controller="Manufacturers" asp-action="AllManufacturers">All Manufacturers</a>
                     </div>
                 </div>
             </div>
@@ -61,8 +61,8 @@
                         Products
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" asp-area="Admin" asp-controller="Products" asp-action="CreateProduct">Add Products</a>
-                        <a class="dropdown-item"class="nav-link" asp-area="Admin" asp-controller="Products" asp-action="AllProducts">All Products</a>
+                        <a class="dropdown-item" asp-controller="Products" asp-action="CreateProduct">Add Products</a>
+                        <a class="dropdown-item"class="nav-link" asp-controller="Products" asp-action="AllProducts">All Products</a>
                     </div>
                 </div>
             </div>
@@ -80,10 +80,8 @@
 <div class="container body-content">
     @RenderBody()
     <hr/>
-    <footer class="text-center">
-        <p>&copy; 2018 - FurryPal - Dog Supplies Store</p>
-    </footer>
 </div>
+
 
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>

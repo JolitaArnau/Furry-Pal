@@ -21,32 +21,67 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-md">
-    <a asp-controller="Home" asp-action="Index" class="navbar-brand">
-        <img id="home-icon" alt="Furry Pal" src="/icons/home-icon.png"/>
-    </a> 
+    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+        <img class="icon" alt="Furry Pal" src="/icons/home-icon.png"/>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">home</a>
             </li>
         </ul>
+        <div class="d-flex">
+            <div class="dropdown mr-1">
+                <button type="button" class="btn dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                    <b>shop by category</b>
+                </button>
+                <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuOffset">
+                    <partial name="_ShopByCategoryPartial"/>
+                </div>
+            </div>
+        </div>
         <partial name="_LoginPartial"/>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-page="">
+                    <img class="icon" alt="Shopping Cart" src="https://res.cloudinary.com/dqpvoobij/image/upload/v1544193529/Shopping_Cart.png"/>
+                    your cart
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>
 
+@RenderBody()
 
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer class="text-center">
-        <p>&copy; 2018 - FurryPal - Dog Supplies Store</p>
-    </footer>
+<div class="container-fluid contact-footer">
+    <div class="row">
+        @* TODO: add all of the following at some point *@
+        <div class="col-4">
+            <h6>Add Facebook Icon Here</h6>
+            <h6>Add Instagram Icon Here</h6>
+        </div>
+        <div class="col-4">
+            <h6>Contact</h6>
+            <h6>Address Street 1</h6>
+            <h6>12345 Zip Code</h6>
+            <h6>+4917654398012</h6>
+        </div>
+        <div class="col-4">
+            <h6>Chat with us via Messanger</h6>
+            <h6>Messanger Chat goes here</h6>
+        </div>
+    </div>
 </div>
+<footer class="page-footer font-small">
+    <div class="footer-copyright text-center py-3">
+        © 2018 Copyright Furry Pal - Dog Supplies Store
+    </div>
+</footer>
 
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -68,9 +103,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
     </script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script src="~/js/toastr.min.js"></script>
 </environment>
-@* @await this.Component.InvokeAsync("NToastNotify")); *@
 
 @RenderSection("Scripts", required: false)
 </body>
