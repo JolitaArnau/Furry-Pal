@@ -1,6 +1,5 @@
 using AutoMapper;
 
-
 namespace FurryPal.Web.Areas.Admin.Controllers
 {
     using System.Collections.Generic;
@@ -60,7 +59,7 @@ namespace FurryPal.Web.Areas.Admin.Controllers
             await this.productAdminService.CreateProductAsync(createProductViewModel.ProductCode,
                 createProductViewModel.Name, createProductViewModel.Description, createProductViewModel.Category,
                 createProductViewModel.Manufacturer, createProductViewModel.Price,
-                createProductViewModel.StockQuantity, createProductViewModel.ImageUrl);
+                createProductViewModel.StockQuantity, createProductViewModel.ImageUrl, createProductViewModel.Keywords);
 
             return this.RedirectToAction("AllProducts");
         }

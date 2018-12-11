@@ -94,6 +94,7 @@ body > div > div > div > div > section > form > div.text-danger.validation-summa
     border-radius: 0;
     background-color: transparent;
     color: #fffffb;
+    font-weight: bold;
 }
 
 .btn-primary {

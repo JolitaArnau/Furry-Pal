@@ -52,7 +52,8 @@ namespace FurryPal.Web.Mapper
                 .ForMember(p => p.Manufacturer, vm => vm.MapFrom(m => m.ManufacturerId))
                 .ForMember(p => p.Price, vm => vm.MapFrom(m => m.Price))
                 .ForMember(p => p.StockQuantity, vm => vm.MapFrom(m => m.StockQuantity))
-                .ForMember(p => p.ImageUrl, vm => vm.MapFrom(m => m.ImageUrl));
+                .ForMember(p => p.ImageUrl, vm => vm.MapFrom(m => m.ImageUrl))
+                .ForMember(p => p.Keywords, vm => vm.MapFrom(m => m.Keywords));
             
             this.CreateMap<User, UserViewModel>()
                 .ForMember(uvm => uvm.Id, x => x.MapFrom(u => u.Id))

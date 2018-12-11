@@ -1,14 +1,12 @@
 namespace FurryPal.Models
 {
-    using System.Collections.Generic;
     using System;
-
-    public class Category
+    
+    public class SubCategory
     {
-        public Category()
+        public SubCategory()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.SubCategories = new HashSet<SubCategory>();
         }
         
         public string Id { get; set; }
@@ -16,7 +14,5 @@ namespace FurryPal.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        public ICollection<SubCategory> SubCategories { get; set; }
     }
 }

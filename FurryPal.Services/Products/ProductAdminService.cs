@@ -1,13 +1,12 @@
-using System.Linq;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-
 namespace FurryPal.Services.Products
 {
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
+    using System.Linq;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using Data;
     using Models;
     using Contracts;
@@ -30,7 +29,7 @@ namespace FurryPal.Services.Products
 
         public async Task CreateProductAsync(string productCode, string name, string description, string categoryId,
             string manufacturerId, decimal price,
-            int stockQuantity, string imageUrl)
+            int stockQuantity, string imageUrl, string keywords)
         {
             var product = new Product()
             {
@@ -41,15 +40,24 @@ namespace FurryPal.Services.Products
                 Manufacturer = this.manufacturerAdminService.GetManufacturerByIdAsync(manufacturerId).Result,
                 Price = price,
                 StockQuantity = stockQuantity,
+                Keywords = new HashSet<Keyword>(ProcessKeywords(keywords))
             };
 
-            var uploadParams = new ImageUploadParams()
+            if (string.IsNullOrEmpty(imageUrl) || string.IsNullOrWhiteSpace(imageUrl))
             {
-                File = new FileDescription(imageUrl)
-            };
-            var uploadResult = cloudinary.Upload(uploadParams);
+                product.ImageUrl = "https://res.cloudinary.com/dqpvoobij/image/upload/v1544518649/photos.png";
+            }
 
-            product.ImageUrl = uploadResult.Uri.ToString();
+            else
+            {
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(imageUrl)
+                };
+                var uploadResult = cloudinary.Upload(uploadParams);
+
+                product.ImageUrl = uploadResult.Uri.ToString();
+            }
 
 
             if (!this.ProductExistsAsync(name).Result)
@@ -133,6 +141,24 @@ namespace FurryPal.Services.Products
             }
 
             return listItems;
+        }
+
+        private HashSet<Keyword> ProcessKeywords(string words)
+        {
+            var input = words.Split(", ").ToArray();
+            var keywords = new HashSet<Keyword>();
+
+            foreach (var word in input)
+            {
+                var keyword = new Keyword
+                {
+                    Name = word
+                };
+
+                keywords.Add(keyword);
+            }
+
+            return keywords;
         }
     }
 }

@@ -21,40 +21,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md">
-    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-        <img class="icon" alt="Furry Pal" src="/icons/home-icon.png"/>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">home</a>
-            </li>
-        </ul>
-        <div class="d-flex">
-            <div class="dropdown mr-1">
-                <button type="button" class="btn dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                    <b>shop by category</b>
-                </button>
-                <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuOffset">
-                    <partial name="_ShopByCategoryPartial"/>
-                </div>
-            </div>
-        </div>
-        <partial name="_LoginPartial"/>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-page="">
-                    <img class="icon" alt="Shopping Cart" src="https://res.cloudinary.com/dqpvoobij/image/upload/v1544193529/Shopping_Cart.png"/>
-                    your cart
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<partial name="_ClientNavigationPartial" />
 
 @RenderBody()
 

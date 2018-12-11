@@ -13,7 +13,6 @@
         <th scope="col">#</th>
         <th scope="col">ProductCode</th>
         <th scope="col">Name</th>
-        <th scope="col">Description</th>
         <th scope="col">Category</th>
         <th scope="col">Manufacturer</th>
         <th scope="col">Price</th>
@@ -32,22 +31,14 @@
             <th scope="row">@index</th>
             <td>@product.ProductCode</td>
             <td>@product.Name</td>
-            <td>@product.Description</td>
             <td>@product.CategoryId</td>
             <td>@product.ManufacturerId</td>
             <td>€ @product.Price</td>
             <td>@product.StockQuantity</td>
             <td>
-                @if(product.ImageUrl != null)
-                {
-                    <img src="@product.ImageUrl" class="img-thumbnail" alt="@product.Name" width="304" height="236"> 
-                }
-                else
-                {
-                    <p>no image added</p>
-                }
+                <img src="@product.ImageUrl" class="img-thumbnail" alt="@product.Name" width="304" height="236">
             </td>
-            
+
             <td>
                 <a asp-action="EditProduct" asp-controller="Products" asp-route-id="@product.Id">E</a>
             </td>
@@ -58,7 +49,5 @@
 
         index++;
     }
-
-
     </tbody>
 </table>
