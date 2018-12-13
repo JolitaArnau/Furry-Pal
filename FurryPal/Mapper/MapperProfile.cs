@@ -56,10 +56,20 @@ namespace FurryPal.Web.Mapper
                 .ForMember(p => p.ImageUrl, vm => vm.MapFrom(m => m.ImageUrl))
                 .ForMember(p => p.Keywords, vm => vm.MapFrom(m => m.Keywords));
 
-            this.CreateMap<Product, AllProductsByCategoryViewModel>()
+            this.CreateMap<Product, ProductOverviewViewModel>()
+                .ForMember(p => p.Id, vm => vm.MapFrom(m => m.Id))
                 .ForMember(p => p.Name, vm => vm.MapFrom(m => m.Name))
                 .ForMember(p => p.ImageUrl, vm => vm.MapFrom(m => m.ImageUrl))
-                .ForMember(p => p.ManufacturerName, vm => vm.MapFrom(m => m.Manufacturer.Name));
+                .ForMember(p => p.ManufacturerName, vm => vm.MapFrom(m => m.Manufacturer.Name))
+                .ForMember(p => p.Price, vm => vm.MapFrom(m => m.Price));
+
+            this.CreateMap<Product, ProductDetailViewModel>()
+                .ForMember(p => p.Id, vm => vm.MapFrom(m => m.Id))
+                .ForMember(p => p.Name, vm => vm.MapFrom(m => m.Name))
+                .ForMember(p => p.ImageUrl, vm => vm.MapFrom(m => m.ImageUrl))
+                .ForMember(p => p.ManufacturerName, vm => vm.MapFrom(m => m.Manufacturer.Name))
+                .ForMember(p => p.Price, vm => vm.MapFrom(m => m.Price))
+                .ForMember(p => p.Description, vm => vm.MapFrom(m => m.Description));            
             
             this.CreateMap<User, UserViewModel>()
                 .ForMember(uvm => uvm.Id, x => x.MapFrom(u => u.Id))

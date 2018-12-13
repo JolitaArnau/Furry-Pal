@@ -1,7 +1,7 @@
 @model IEnumerable<FurryPal.Web.ViewModels.Products.ProductOverviewViewModel>
 
 @{
-    ViewData["Title"] = "Leashes";
+    ViewData["Title"] = "Collars";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
@@ -21,7 +21,7 @@
                                 <p class="card-text">@product.Price €</p>
                             </b>
                             <br/>
-                            <button class="btn" id="leashes-btn">
+                            <button class="btn" id="collars-btn">
                                 <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">Details</a>
                             </button>
                         </div>
@@ -34,6 +34,3 @@
 <div class="form-group text-center">
     <button onclick="window.history.back()" class="btn btn-primary">Back</button>
 </div>
-
-
-

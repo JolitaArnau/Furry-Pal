@@ -8,7 +8,6 @@ body {
 
 body, html {
     height: 100%;
-    margin: 0;
 }
 
 .background {
@@ -20,7 +19,7 @@ body, html {
 
 hr {
     background: #a69b97;
-    height: .03rem;
+    height: 0.01rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -45,16 +44,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #search:focus {
-    background-color: white!important;
-    border-bottom: 1px solid black!important;
+    background-color: white !important;
+    border-bottom: 1px solid black !important;
 }
 
 #search {
-    border: 0!important;
-    outline: 0!important;
+    border: 0 !important;
+    outline: 0 !important;
     border-radius: 0;
-    border-bottom: 1px solid black!important;
-    background: transparent!important;
+    border-bottom: 1px solid black !important;
+    background: transparent !important;
 }
 
 #btn-search {
@@ -155,33 +154,34 @@ li.active.nav-item.account-manage {
 }
 
 .category-item:hover {
-    background:none;
+    background: none;
 }
+
 .category-item {
     padding: 1.0rem;
 }
 
-#leashes {
-    background-color: #b2dfdb;
+#leashes, #leashes-btn {
+    background-color: #b2dfdb !important;
 }
 
-#toys {
+#toys, #toys-btn {
     background-color: #a5d6a7;
 }
 
-#bowls {
+#bowls, #bowls-btn {
     background-color: #ef9a9a;
 }
 
-#beds {
+#beds, #beds-btn {
     background-color: #9fa8da;
 }
 
-#food {
+#food, #food-btn {
     background-color: #ffcc80;
 }
 
-#collars {
+#collars, #collars-btn {
     background-color: #929fba;
 }
 
@@ -192,4 +192,30 @@ footer {
 .contact-footer {
     background-color: #439889;
     color: #fffffb;
+}
+
+.product-card, .card {
+    margin: 2rem !important;
+}
+
+.card-img-top {
+    width: 20rem;
+    height: 20rem;
+}
+
+#price {
+    color: rgba(244, 67, 54, 0.7);
+}
+s
+#product-name-details-page {
+    margin-top: 0!important;
+    margin-bottom: 0!important;
+}
+
+#in-stock {
+    color:#4caf50;
+}
+
+#description-tab, #additional-info-tab {
+    color: #4e555b;
 }
