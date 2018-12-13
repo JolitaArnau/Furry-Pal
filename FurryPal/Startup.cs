@@ -50,6 +50,7 @@ namespace FurryPal.Web
             services.AddTransient<IManufacturerAdminService, ManufacturerAdminService>();
             services.AddTransient<IProductAdminService, ProductAdminService>();
             services.AddTransient<IUserAdminService, UserAdminService>();
+            services.AddTransient<IProductCustomerService, ProductCustomerService>();
 
             // auto mapper config
             var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MapperProfile()));

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FurryPal.Data
 {
@@ -37,6 +38,8 @@ namespace FurryPal.Data
         public DbSet<Review> Reviews { get; set; }
 
         public DbSet<SubCategory> SubCategories { get; set; }
+
+        public DbSet<Keyword> Keywords { get; set; }
 
         public class FurryPalDbContextContextFactory
             : IDesignTimeDbContextFactory<FurryPalDbContext>

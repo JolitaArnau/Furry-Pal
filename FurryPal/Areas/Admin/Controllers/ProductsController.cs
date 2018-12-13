@@ -15,10 +15,10 @@ namespace FurryPal.Web.Areas.Admin.Controllers
     public class ProductsController : AdminBaseController
     {
         private readonly IProductAdminService productAdminService;
-        private readonly IMapper mapper;
 
         public ProductsController(UserManager<User> userManager, SignInManager<User> signInManager,
-            IProductAdminService productAdminService, IMapper mapper) : base(userManager, signInManager)
+            IMapper mapper, IProductAdminService productAdminService) : base(
+            userManager, signInManager, mapper)
         {
             this.productAdminService = productAdminService;
             this.mapper = mapper;

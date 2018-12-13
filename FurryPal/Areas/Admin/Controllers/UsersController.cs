@@ -11,11 +11,10 @@ namespace FurryPal.Web.Areas.Admin.Controllers
     public class UsersController : AdminBaseController
     {
         private readonly IUserAdminService userAdminService;
-        private readonly IMapper mapper;
 
         public UsersController(UserManager<User> userManager, SignInManager<User> signInManager,
             IUserAdminService userAdminService, IMapper mapper) : base(userManager,
-            signInManager)
+            signInManager, mapper)
         {
             this.userAdminService = userAdminService;
             this.mapper = mapper;

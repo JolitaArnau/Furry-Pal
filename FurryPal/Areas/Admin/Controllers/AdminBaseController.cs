@@ -1,25 +1,31 @@
-using System.Linq;
-using FurryPal.Services.Contracts;
+using AutoMapper;
 
 namespace FurryPal.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Identity;
-    using Data;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using FurryPal.Models;
     using FurryPal.Web.Controllers;
     using Common;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+    using Services.Contracts;
+
 
     [Authorize(Roles = RoleConstants.Administrator)]
     [Area("Admin")]
-    public class AdminBaseController : BaseController
+    public class AdminBaseController : Controller
     {
-        private readonly IProductAdminService adminService;
 
-        public AdminBaseController(UserManager<User> userManager, SignInManager<User> signInManager) : base(userManager,
-            signInManager)
+        protected UserManager<User> userManager;
+        protected SignInManager<User> signInManager;
+        protected IMapper mapper;
+        
+        
+        public AdminBaseController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.mapper = mapper;
         }
 
         public IActionResult Dashboard()

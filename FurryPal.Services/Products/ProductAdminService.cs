@@ -31,17 +31,30 @@ namespace FurryPal.Services.Products
             string manufacturerId, decimal price,
             int stockQuantity, string imageUrl, string keywords)
         {
+            var category = new Category(this.categoryAdminService.GetCategoryByIdAsync(categoryId).Result.Id,
+                this.categoryAdminService.GetCategoryByIdAsync(categoryId).Result.Name,
+                this.categoryAdminService.GetCategoryByIdAsync(categoryId).Result.Description);
+
+            var manufacturer = new Manufacturer(
+                this.manufacturerAdminService.GetManufacturerByIdAsync(manufacturerId).Result.Id,
+                this.manufacturerAdminService.GetManufacturerByIdAsync(manufacturerId).Result.Name,
+                this.manufacturerAdminService.GetManufacturerByIdAsync(manufacturerId).Result.Email,
+                this.manufacturerAdminService.GetManufacturerByIdAsync(manufacturerId).Result.PhoneNumber);
+
             var product = new Product()
             {
                 ProductCode = productCode,
                 Name = name,
                 Description = description,
-                Category = this.categoryAdminService.GetCategoryByIdAsync(categoryId).Result,
-                Manufacturer = this.manufacturerAdminService.GetManufacturerByIdAsync(manufacturerId).Result,
+                Category = category,
+                CategoryId = categoryId,
+                Manufacturer = manufacturer,
+                ManufacturerId = manufacturerId,
                 Price = price,
                 StockQuantity = stockQuantity,
                 Keywords = new HashSet<Keyword>(ProcessKeywords(keywords))
             };
+
 
             if (string.IsNullOrEmpty(imageUrl) || string.IsNullOrWhiteSpace(imageUrl))
             {
@@ -69,7 +82,13 @@ namespace FurryPal.Services.Products
 
         public async Task<Product[]> GetAllProductsAsync()
         {
-            var products = await this.dbContext.Products.ToArrayAsync();
+            var products = await
+                this
+                    .dbContext
+                    .Products
+                    .Include(p => p.Category)
+                    .Include(p => p.Manufacturer)
+                    .ToArrayAsync();
 
             return products;
         }
@@ -91,8 +110,12 @@ namespace FurryPal.Services.Products
 
         public async Task DeleteProductAsync(string id)
         {
-            var product = await this.dbContext.Products.FirstOrDefaultAsync(c => c.Id.Equals(id));
+           var product = await this.dbContext.Products
+            .Include(k => k.Keywords)
+                .FirstOrDefaultAsync(c => c.Id.Equals(id));
 
+            dbContext.Keywords.RemoveRange(product.Keywords);
+            
             this.dbContext.Products.Remove(product);
             await this.dbContext.SaveChangesAsync();
         }

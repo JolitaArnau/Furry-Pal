@@ -14,12 +14,12 @@
 <table class="table">
     <thead>
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">Company Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone Number</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
+        <th>#</th>
+        <th>Company Name</th>
+        <th>Email</th>
+        <th >Phone Number</th>
+        <th >Edit</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
     @foreach (var manufacturer in @Model)
     {
         <tr>
-            <th scope="row">@index</th>
+            <th >@index</th>
             <td>@manufacturer.Name</td>
             <td>@manufacturer.Email</td>
             <td>@manufacturer.PhoneNumber</td>

@@ -1,26 +1,23 @@
-using AutoMapper;
-
 namespace FurryPal.Web.Areas.Admin.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Common;
-    using Data;
     using FurryPal.Models;
     using Services.Contracts;
     using ViewModels.Manufacturers;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
     using CreateViewModel = ViewModels.Manufacturers.CreateViewModel;
 
     public class ManufacturersController : AdminBaseController
     {
-        private readonly IMapper mapper;
         private readonly IManufacturerAdminService manufacturerAdminService;
 
         public ManufacturersController(UserManager<User> userManager, SignInManager<User> signInManager,
-            FurryPalDbContext dbContext, IMapper mapper, IManufacturerAdminService manufacturerAdminService) : base(
-            userManager, signInManager)
+            IMapper mapper, IManufacturerAdminService manufacturerAdminService) : base(
+            userManager, signInManager, mapper)
         {
             this.mapper = mapper;
             this.manufacturerAdminService = manufacturerAdminService;

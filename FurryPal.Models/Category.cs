@@ -5,12 +5,19 @@ namespace FurryPal.Models
 
     public class Category
     {
+        public Category(string id, string name, string description)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Description = description;
+        }
+
         public Category()
         {
             this.Id = Guid.NewGuid().ToString();
             this.SubCategories = new HashSet<SubCategory>();
         }
-        
+
         public string Id { get; set; }
 
         public string Name { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace FurryPal.Web.Controllers
+﻿using AutoMapper;
+
+namespace FurryPal.Web.Controllers
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -8,7 +10,8 @@
 
     public class HomeController : BaseController
     {
-        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager) : base(userManager, signInManager)
+        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper) : base(
+            userManager, signInManager, mapper)
         {
         }
 

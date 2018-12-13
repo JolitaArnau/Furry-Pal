@@ -1,0 +1,11 @@
+@model IEnumerable<FurryPal.Web.ViewModels.Products.AllProductsByCategoryViewModel>
+
+@foreach (var product in @Model)
+{
+    <div>
+        <p>@product.Name</p>
+        <p>@product.ImageUrl</p>
+        <p>@product.ManufacturerName</p>
+    </div>
+}
+
