@@ -9,7 +9,7 @@ namespace FurryPal.Services.Contracts
     {
         Task CreateProductAsync(string productCode, string name, string description, string categoryId,
             string manufacturerId,
-            decimal price, int stockQuantity, string imageUrl, string keywords);
+            decimal price, int stockQuantity, string imageUrl, string keywords, bool isAvailableForAutoShipping);
 
         Task<Product[]> GetAllProductsAsync();
 

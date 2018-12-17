@@ -4,14 +4,16 @@ using FurryPal.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FurryPal.Data.Migrations
 {
     [DbContext(typeof(FurryPalDbContext))]
-    partial class FurryPalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181217104201_AddedNewPropertyForEntityProduct")]
+    partial class AddedNewPropertyForEntityProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

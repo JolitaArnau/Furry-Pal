@@ -59,7 +59,8 @@ namespace FurryPal.Web.Areas.Admin.Controllers
             await this.productAdminService.CreateProductAsync(createProductViewModel.ProductCode,
                 createProductViewModel.Name, createProductViewModel.Description, createProductViewModel.Category,
                 createProductViewModel.Manufacturer, createProductViewModel.Price,
-                createProductViewModel.StockQuantity, createProductViewModel.ImageUrl, createProductViewModel.Keywords);
+                createProductViewModel.StockQuantity, createProductViewModel.ImageUrl, createProductViewModel.Keywords,
+                createProductViewModel.IsAvailableForAutoShipping);
 
             return this.RedirectToAction("AllProducts");
         }

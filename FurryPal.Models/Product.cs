@@ -32,6 +32,8 @@ namespace FurryPal.Models
 
         public int StockQuantity { get; set; }
 
+        public bool IsAvailableForAutoShipping { get; set; }
+
         public ICollection<Review> Reviews => new HashSet<Review>();
 
         public ICollection<Keyword> Keywords { get; set; }

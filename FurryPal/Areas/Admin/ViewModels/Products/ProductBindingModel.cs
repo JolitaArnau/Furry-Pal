@@ -60,5 +60,8 @@ namespace FurryPal.Web.Areas.Admin.ViewModels.Products
         [Required] [Range(1, Int32.MaxValue)] public int StockQuantity { get; set; }
 
         [DataType(DataType.ImageUrl)] public string ImageUrl { get; set; }
+
+        [Display(Name = "Available For Auto Shipping?")]
+        public bool IsAvailableForAutoShipping { get; set; }
     }
 }

@@ -37,8 +37,6 @@ namespace FurryPal.Data
 
         public DbSet<Review> Reviews { get; set; }
 
-        public DbSet<SubCategory> SubCategories { get; set; }
-
         public DbSet<Keyword> Keywords { get; set; }
 
         public class FurryPalDbContextContextFactory

@@ -16,9 +16,28 @@
                 <b>
                     <h2 id="product-name-details-page">@productName</h2>
                 </b>
-                <h5>Price: <span id="price">@Model.Price €</span></h5>
+                <h6>
+                    Price:
+                    <span id="price">@Model.Price €</span>
+                </h6>
                 <hr/>
-                <h5>No auto shipping available for this product - boilerplate before adding real functionality here</h5>
+                @if (!@Model.IsAvailableForAutoShipping)
+                {
+                   
+                    <h6>
+                        <span class="auto-shipping">Auto Shipping:</span> <br/><br/>
+                        No Auto Shipping available for this product.
+                    </h6>
+                }
+                else
+                {
+                    <h6>
+                        <span class="auto-shipping">Auto Shipping:</span> <br/><br/>
+                        Yippee, seems like we offer <span>Auto Shipping</span> on this product!
+                        You can add it to your Subscription and get it delivered to your doorstep in a regular period of time!
+                    </h6>
+                }
+
                 <hr/>
                 <h6>
                     @if (@Model.StockQuantity > 20)

@@ -74,6 +74,21 @@
                         <textarea asp-for="Keywords" class="form-control"></textarea>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <fieldset class="form-group">
+                        <label asp-for="IsAvailableForAutoShipping"></label>
+                        <div class="mt-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="IsAvailableForAutoShippingYes" asp-for="IsAvailableForAutoShipping" type="radio" value="true"/>
+                                <label class="form-check-label" for="IsAvailableForAutoShippingYes">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="IsAvailableForAutoShippingNo" asp-for="IsAvailableForAutoShipping" type="radio" value="false"/>
+                                <label class="form-check-label" for="IsAvailableForAutoShippingNo">No</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-primary"><b>+</b> Add</button>

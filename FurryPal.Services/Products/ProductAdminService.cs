@@ -29,7 +29,7 @@ namespace FurryPal.Services.Products
 
         public async Task CreateProductAsync(string productCode, string name, string description, string categoryId,
             string manufacturerId, decimal price,
-            int stockQuantity, string imageUrl, string keywords)
+            int stockQuantity, string imageUrl, string keywords, bool isAvailableForAutoShipping)
         {
             var category = new Category(this.categoryAdminService.GetCategoryByIdAsync(categoryId).Result.Id,
                 this.categoryAdminService.GetCategoryByIdAsync(categoryId).Result.Name,
@@ -52,7 +52,8 @@ namespace FurryPal.Services.Products
                 ManufacturerId = manufacturerId,
                 Price = price,
                 StockQuantity = stockQuantity,
-                Keywords = new HashSet<Keyword>(ProcessKeywords(keywords))
+                Keywords = new HashSet<Keyword>(ProcessKeywords(keywords)),
+                IsAvailableForAutoShipping = isAvailableForAutoShipping
             };
 
 
