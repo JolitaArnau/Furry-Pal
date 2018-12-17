@@ -216,6 +216,14 @@ s
     color:#4caf50;
 }
 
+#few-available {
+    color: #ff9800;
+}
+
+#not-in-stock {
+    color: #f44336;
+}
+
 #description-tab, #additional-info-tab {
     color: #4e555b;
 }

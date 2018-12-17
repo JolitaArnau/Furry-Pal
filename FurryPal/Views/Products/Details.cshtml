@@ -21,21 +21,52 @@
                 <h5>No auto shipping available for this product - boilerplate before adding real functionality here</h5>
                 <hr/>
                 <h6>
-                    <b>
-                        <span id="in-stock">In Stock</span>
-                    </b> (no real functionality for this yet - must add)
+                    @if (@Model.StockQuantity > 20)
+                    {
+                        <b>
+                            <span id="in-stock">In Stock</span>
+                        </b>
+                    }
+                    else if (@Model.StockQuantity <= 20 && @Model.StockQuantity != 0)
+                    {
+                        <b>
+                            <span id="few-available">Only Few Available!</span>
+                        </b>
+                    }
+                    else if (@Model.StockQuantity == 0)
+                    {
+                        <b>
+                            <span id="not-in-stock">Not In Stock. More coming soon!</span>
+                        </b>
+                    }
                 </h6>
             </div>
             <div class="col-md-2">
-                <form>
-                    <div class="form-group">
-                        <label>Quantity</label>
-                        <input class="form-control"/>
-                    </div>
-                    <button class="btn btn-primary">
-                        <a>add to cart</a>
-                    </button>
-                </form>
+                @* TODO: implement server side logic for this! *@
+                @if (@Model.StockQuantity == 0)
+                {
+                    <form>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input class="form-control" disabled/>
+                        </div>
+                        <button class="btn btn-primary" disabled>
+                            <a>add to cart</a>
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <form>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input class="form-control"/>
+                        </div>
+                        <button class="btn btn-primary">
+                            <a>add to cart</a>
+                        </button>
+                    </form>
+                }
             </div>
         </div>
     </section>

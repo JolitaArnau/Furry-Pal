@@ -13,5 +13,9 @@ namespace FurryPal.Web.ViewModels.Products
         public string ManufacturerName { get; set; }
 
         public decimal Price { get; set; }
+
+        public int StockQuantity { get; set; }
+
+        public bool IsAvailableForAutoShipping { get; set; }
     }
 }
