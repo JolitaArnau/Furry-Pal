@@ -23,7 +23,6 @@
                 <hr/>
                 @if (!@Model.IsAvailableForAutoShipping)
                 {
-                   
                     <h6>
                         <span class="auto-shipping">Auto Shipping:</span> <br/><br/>
                         No Auto Shipping available for this product.
@@ -64,27 +63,15 @@
                 @* TODO: implement server side logic for this! *@
                 @if (@Model.StockQuantity == 0)
                 {
-                    <form>
-                        <div class="form-group">
-                            <label>Quantity</label>
-                            <input class="form-control" disabled/>
-                        </div>
-                        <button class="btn btn-primary" disabled>
-                            <a>add to cart</a>
-                        </button>
-                    </form>
+                    <button class="btn btn-primary" disabled>
+                        <a>add to cart</a>
+                    </button>
                 }
                 else
                 {
-                    <form>
-                        <div class="form-group">
-                            <label>Quantity</label>
-                            <input class="form-control"/>
-                        </div>
-                        <button class="btn btn-primary">
-                            <a>add to cart</a>
-                        </button>
-                    </form>
+                    <button class="btn btn-primary">
+                        <a asp-route-id="@Model.Id" asp-controller="Products" asp-action="AddToCart">Add To Cart</a>
+                    </button>
                 }
             </div>
         </div>

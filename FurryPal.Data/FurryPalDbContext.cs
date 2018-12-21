@@ -39,6 +39,8 @@ namespace FurryPal.Data
 
         public DbSet<Keyword> Keywords { get; set; }
 
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
         public class FurryPalDbContextContextFactory
             : IDesignTimeDbContextFactory<FurryPalDbContext>
         {

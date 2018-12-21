@@ -1,3 +1,4 @@
+
 namespace FurryPal.Web.Controllers
 {
     using Microsoft.AspNetCore.Identity;
@@ -27,7 +28,7 @@ namespace FurryPal.Web.Controllers
 
             return View("Leashes", productsViewModel);
         }
-        
+
         public async Task<IActionResult> Toys()
         {
             var products = await this.productCustomerService.GetAllToys();
@@ -36,7 +37,7 @@ namespace FurryPal.Web.Controllers
 
             return View("Toys", productsViewModel);
         }
-        
+
         public async Task<IActionResult> Bowls()
         {
             var products = await this.productCustomerService.GetAllBowls();
@@ -45,7 +46,7 @@ namespace FurryPal.Web.Controllers
 
             return View("Bowls", productsViewModel);
         }
-        
+
         public async Task<IActionResult> Beds()
         {
             var products = await this.productCustomerService.GetAllBeds();
@@ -53,8 +54,8 @@ namespace FurryPal.Web.Controllers
             var productsViewModel = mapper.Map<Product[], IEnumerable<ProductOverviewViewModel>>(products);
 
             return View("Beds", productsViewModel);
-        } 
-        
+        }
+
         public async Task<IActionResult> Food()
         {
             var products = await this.productCustomerService.GetAllFood();
@@ -63,7 +64,7 @@ namespace FurryPal.Web.Controllers
 
             return View("Food", productsViewModel);
         }
-        
+
         public async Task<IActionResult> Collars()
         {
             var products = await this.productCustomerService.GetAllCollars();
@@ -72,7 +73,7 @@ namespace FurryPal.Web.Controllers
 
             return View("Collars", productsViewModel);
         }
-        
+
         public async Task<IActionResult> Details(string id)
         {
             var product = this.productCustomerService.GetProductById(id);
@@ -85,6 +86,11 @@ namespace FurryPal.Web.Controllers
             var model = this.mapper.Map<Product, ProductDetailViewModel>(product);
 
             return await Task.Run(() => this.View("Details", model));
+        }
+
+        public async Task<IActionResult> AddToCart(string id, string quantity)
+        {
+            return await Task.Run(() => this.RedirectToAction("Add", "ShoppingCart", new {id}));
         }
     }
 }

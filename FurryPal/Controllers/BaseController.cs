@@ -9,7 +9,7 @@ namespace FurryPal.Web.Controllers
     {
         protected readonly UserManager<User> userManager;
         protected readonly SignInManager<User> signInManager;
-        protected IMapper mapper;
+        protected readonly IMapper mapper;
 
         public BaseController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {

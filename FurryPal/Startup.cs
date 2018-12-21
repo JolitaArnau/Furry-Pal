@@ -1,4 +1,4 @@
-﻿using CloudinaryDotNet;
+﻿using System;
 
 namespace FurryPal.Web
 {
@@ -11,6 +11,8 @@ namespace FurryPal.Web
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using CloudinaryDotNet;
+    using Services.ShoppingCart;
     using AutoMapper;
     using Mapper;
     using Data;
@@ -44,7 +46,11 @@ namespace FurryPal.Web
 
             var connection = Configuration["ConnectionString:DefaultConnection"];
 
+            // db
+
             services.AddDbContext<FurryPalDbContext>(options => options.UseSqlServer(connection));
+
+            // custom app services
 
             services.AddTransient<ICategoryAdminService, CategoryAdminService>();
             services.AddTransient<IManufacturerAdminService, ManufacturerAdminService>();
@@ -52,18 +58,24 @@ namespace FurryPal.Web
             services.AddTransient<IUserAdminService, UserAdminService>();
             services.AddTransient<IProductCustomerService, ProductCustomerService>();
 
+//            services.AddScoped<IShoppingCartService, ShoppingCartService>();
+
             // auto mapper config
+
             var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MapperProfile()));
             var mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
             // cloudinary - used for storing media content outside of the local application
+
             var cloudName = Configuration["Media:Cloudinary:CloudName"];
             var apiKey = Configuration["Media:Cloudinary:Api_Key"];
             var apiSecret = Configuration["Media:Cloudinary:Api_Secret"];
-            var cloudinaryAccount= new Account(cloudName, apiKey, apiSecret);
+            var cloudinaryAccount = new Account(cloudName, apiKey, apiSecret);
             var cloudinary = new Cloudinary(cloudinaryAccount);
             services.AddSingleton(cloudinary);
+
+            // identity
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -80,6 +92,10 @@ namespace FurryPal.Web
                 .AddEntityFrameworkStores<FurryPalDbContext>()
                 .AddDefaultTokenProviders();
 
+            // cart
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => ShoppingCart.GetCart(sp));
 
             services.AddMvc(options => { options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -90,6 +106,17 @@ namespace FurryPal.Web
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
                 });
 
+            // session
+
+            services.AddDistributedMemoryCache(); 
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+            });
+            
+            // application cookie
+            
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
@@ -104,6 +131,7 @@ namespace FurryPal.Web
             });
 
             // using Microsoft.AspNetCore.Identity.UI.Services;
+            
             services.AddSingleton<IEmailSender, EmailSender>(i =>
                 new EmailSender(
                     Configuration["EmailSender:Host"],
@@ -113,13 +141,17 @@ namespace FurryPal.Web
                     Configuration["EmailSender:Password"]
                 )
             );
+
+            // fb auth
             
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
                 {
-                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];  
-                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];  
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                 });
+
+            // google auth
             
             services.AddAuthentication().AddGoogle(googleOptions =>
             {
@@ -141,13 +173,14 @@ namespace FurryPal.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseAuthentication();
-            app.UseCookiePolicy();
 
             app.UseMiddleware<SeederMiddleware>();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

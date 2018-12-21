@@ -4,6 +4,7 @@ using FurryPal.Web.Areas.Admin.ViewModels.Categories;
 using FurryPal.Web.Areas.Admin.ViewModels.Manufacturers;
 using FurryPal.Web.Areas.Admin.ViewModels.Products;
 using FurryPal.Web.Areas.Admin.ViewModels.Users;
+using FurryPal.Web.ViewModels.Cart;
 using FurryPal.Web.ViewModels.Products;
 
 namespace FurryPal.Web.Mapper
@@ -37,6 +38,8 @@ namespace FurryPal.Web.Mapper
             this.CreateMap<User, UserViewModel>()
                 .ForMember(uvm => uvm.Id, x => x.MapFrom(u => u.Id))
                 .ForMember(uvm => uvm.Username, x => x.MapFrom(u => u.UserName));
+
+            //this.CreateMap<Product, ShoppingCartViewModel>();
 
         }
     }
