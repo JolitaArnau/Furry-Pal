@@ -1,5 +1,7 @@
+using FurryPal.Common;
 using FurryPal.Services.ShoppingCart;
 using FurryPal.Web.ViewModels.Cart;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace FurryPal.Web.Controllers
@@ -24,7 +26,7 @@ namespace FurryPal.Web.Controllers
             this.productService = productService;
         }
 
-        public async Task<IActionResult> Cart()
+        public async Task<IActionResult> Order()
         {
             var items = shoppingCart.GetShoppingCartItems();
             shoppingCart.ShoppingCartItems = items;
@@ -35,9 +37,10 @@ namespace FurryPal.Web.Controllers
                 ShoppingCartTotal = shoppingCart.GetShoppingCartTotal()
             };
 
-            return await Task.Run(() => View("Cart", shoppingCartViewModel));
+            return await Task.Run(() => View("Order", shoppingCartViewModel));
         }
 
+        [Authorize(Roles = RoleConstants.User)]
         public async Task<IActionResult> Add(string id)
         {
             var productToAdd = this.productService.GetProductById(id);
@@ -47,19 +50,19 @@ namespace FurryPal.Web.Controllers
                 shoppingCart.AddToCart(productToAdd, 1);
             }
 
-            return await Task.Run(() => RedirectToAction("Cart"));
+            return await Task.Run(() => RedirectToAction("Order"));
         }
 
         public async Task<IActionResult> Remove(string id)
         {
             var productToRemove = this.productService.GetProductById(id);
-
             if (productToRemove != null)
             {
                 shoppingCart.RemoveFromCart(productToRemove);
             }
+            shoppingCart.ClearCart();
 
-            return await Task.Run(() => View("Cart"));
+            return await Task.Run(() => RedirectToAction("Order"));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FurryPal.Services.ShoppingCart;
 
 namespace FurryPal.Web.Controllers
 {
@@ -10,7 +11,9 @@ namespace FurryPal.Web.Controllers
 
     public class HomeController : BaseController
     {
-        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper) : base(
+
+        public HomeController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper
+        ) : base(
             userManager, signInManager, mapper)
         {
         }

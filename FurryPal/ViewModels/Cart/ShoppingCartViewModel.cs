@@ -1,3 +1,4 @@
+using System.Threading;
 using FurryPal.Services.ShoppingCart;
 
 namespace FurryPal.Web.ViewModels.Cart
@@ -7,6 +8,5 @@ namespace FurryPal.Web.ViewModels.Cart
         public ShoppingCart ShoppingCart { get; set; }
 
         public decimal ShoppingCartTotal { get; set; }
-
     }
 }

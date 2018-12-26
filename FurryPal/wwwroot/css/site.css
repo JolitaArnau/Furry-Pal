@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 
 a {
     color: #003d33;
-    text-decoration: none;
+    text-decoration: none!important;
     font-weight: bold;
 }
 
@@ -100,17 +100,13 @@ body > div > div > div > div > section > form > div.text-danger.validation-summa
     background-color: #d7ccc8 !important;
     border-color: #d7ccc8 !important;
     color: black;
-}
-
-.btn-primary:hover {
-    color: #000000;
-}
-
-.btn-primary {
-    border-color: #d7ccc8 !important;
     outline: none !important;
     --box-shadow-color: #d7ccc8 !important;
     box-shadow: 0 0 0 0.1rem #d7ccc8 !important;
+}
+
+.btn-primary a:hover {
+    color: #fffffb!important;
 }
 
 .btn-warning {

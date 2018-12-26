@@ -46,6 +46,7 @@
       <_ContentIncludedByDefault Remove="Areas\Customer\Views\Products\Toys.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Customer\Views\_ViewImports.cshtml" />
       <_ContentIncludedByDefault Remove="Areas\Customer\Views\_ViewStart.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Shared\Components\ShoppingCartSummary\ShoppingCartItemsCount.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

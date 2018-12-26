@@ -1,0 +1,69 @@
+@model FurryPal.Web.ViewModels.Cart.ShoppingCartViewModel
+
+@{
+
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container m-5">
+    <section>
+        @if (Model.ShoppingCart.ShoppingCartItems.Count != 0)
+        {
+            foreach (var line in Model.ShoppingCart.ShoppingCartItems)
+            {
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <img class="img-fluid" style="border: 2px solid #f9f9f9;" src="@line.Product.ImageUrl"/>
+                    </div>
+                    <div class="col-md-4">
+                        <b>
+                            <h2 id="product-name-details-page">@line.Product.Name</h2>
+                        </b>
+                        <h5>
+                            Price:
+                            <span id="price">@line.Product.Price €</span>
+                        </h5>
+                        <h5>
+                            Quantity:
+                            <span>@line.Quantity</span>
+                        </h5>
+                        <h5>
+                            Add More:
+                            <a asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@line.Product.Id">
+                                <i class="fas fa-plus-circle btn btn-primary" style="color: white;"></i>
+                            </a>
+                        </h5>
+                        <h5>
+                            Remove: &nbsp;
+                            <a asp-controller="ShoppingCart" asp-action="Remove" asp-route-id="@line.Product.Id">
+                                <i class="fas fa-minus-circle btn btn-primary" style="color: white;"></i>
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+                <br/>
+            }
+            <hr/>
+            <h5>
+                Total:
+                <span>€</span> @Model.ShoppingCartTotal
+
+                <div class="text-center">
+                    <a class="btn btn-primary">Check out</a>
+                </div>
+            </h5>
+        }
+        else
+        {
+            <h2 class="text-center">
+                There are currently no items in your shopping cart
+
+            </h2>
+            <h2 class="text-center" style="font-size: 400px;">
+                <i class="far fa-sad-tear"></i>
+            </h2>
+        }
+    </section>
+</div>
