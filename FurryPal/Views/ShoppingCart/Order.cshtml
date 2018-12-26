@@ -13,34 +13,34 @@
         {
             foreach (var line in Model.ShoppingCart.ShoppingCartItems)
             {
-                <div class="row justify-content-center">
+                <div class="row justify-content-center p-3" style="border: 2px solid #f9f9f9;">
                     <div class="col-md-4">
-                        <img class="img-fluid" style="border: 2px solid #f9f9f9;" src="@line.Product.ImageUrl"/>
+                        <img class="img-fluid"  src="@line.Product.ImageUrl"/>
                     </div>
                     <div class="col-md-4">
                         <b>
-                            <h2 id="product-name-details-page">@line.Product.Name</h2>
+                            <h4 id="product-name-details-page">@line.Product.Name</h4>
                         </b>
-                        <h5>
+                        <h6>
                             Price:
                             <span id="price">@line.Product.Price €</span>
-                        </h5>
-                        <h5>
+                        </h6>
+                        <h6>
                             Quantity:
                             <span>@line.Quantity</span>
-                        </h5>
-                        <h5>
+                        </h6>
+                        <h6>
                             Add More:
                             <a asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@line.Product.Id">
                                 <i class="fas fa-plus-circle btn btn-primary" style="color: white;"></i>
                             </a>
-                        </h5>
-                        <h5>
+                        </h6>
+                        <h6>
                             Remove: &nbsp;
                             <a asp-controller="ShoppingCart" asp-action="Remove" asp-route-id="@line.Product.Id">
                                 <i class="fas fa-minus-circle btn btn-primary" style="color: white;"></i>
                             </a>
-                        </h5>
+                        </h6>
                     </div>
                 </div>
                 <br/>

@@ -24,16 +24,23 @@
                 @if (!@Model.IsAvailableForAutoShipping)
                 {
                     <h6>
-                        <span class="auto-shipping">Auto Shipping:</span> <br/><br/>
+                        <span class="auto-shipping"><i class="fas fa-redo-alt"></i> <i class="fas fa-shipping-fast"></i> Auto Shipping: </span> <br/><br/>
                         No Auto Shipping available for this product.
                     </h6>
                 }
                 else
                 {
                     <h6>
-                        <span class="auto-shipping">Auto Shipping:</span> <br/><br/>
+                        <span class="auto-shipping"><i class="fas fa-redo-alt"></i> <i class="fas fa-shipping-fast"></i> Auto Shipping:</span> <br/><br/>
                         Yippee, seems like we offer <span>Auto Shipping</span> on this product!
                         You can add it to your Subscription and get it delivered to your doorstep in a regular period of time!
+                        <br/>
+                        <br/>
+                        <button class="btn btn-warning">
+                            <a asp-route-id="@Model.Id">
+                                Add To Subsription
+                            </a>
+                        </button>
                     </h6>
                 }
 
@@ -42,7 +49,7 @@
                     @if (@Model.StockQuantity > 20)
                     {
                         <b>
-                            <span id="in-stock">In Stock</span>
+                            <span id="in-stock"><i class="far fa-check-circle"></i> <i class="fas fa-box"></i> In Stock</span>
                         </b>
                     }
                     else if (@Model.StockQuantity <= 20 && @Model.StockQuantity != 0)
@@ -54,24 +61,40 @@
                     else if (@Model.StockQuantity == 0)
                     {
                         <b>
-                            <span id="not-in-stock">Not In Stock. More coming soon!</span>
+                            <span id="not-in-stock"> <i class="fas fa-box"></i> <i class="fas fa-times"></i> Not In Stock. More coming soon!</span>
                         </b>
                     }
                 </h6>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 m-5">
+                <h6>
+                    Payment Methods:
+                    <br/>
+                    <br/>
+                    <i class="fab fa-cc-paypal payment-options"></i> /
+                    <i class="fas fa-credit-card payment-options"></i> /
+                    <i class="fas fa-cash-register payment-options"></i> - pay upon delivery
+                </h6>
+                <h6>
+                    We Ship With:
+                    <br/>
+                    <br/>
+                    <i class="fab fa-ups shipment-options"></i>
+                    <i class="fab fa-dhl shipment-options"></i>
+                </h6>
+                <br/>
                 @* TODO: implement server side logic for this! *@
                 @if (@Model.StockQuantity == 0)
                 {
                     <button class="btn btn-primary" disabled>
-                        <a>add to cart</a>
+                        <a>Add To Cart</a>
                     </button>
                 }
                 else
                 {
                     <button class="btn btn-primary">
                         <a asp-route-id="@Model.Id" asp-controller="Products" asp-action="AddToCart">
-                            <i class="fas fa-cart-plus"></i>
+                            <i class="fas fa-cart-arrow-down"></i>
                             Add To Cart
                         </a>
                     </button>

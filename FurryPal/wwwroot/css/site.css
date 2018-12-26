@@ -234,3 +234,11 @@ footer {
 #description-tab:focus, #additional-info-tab:focus {
     border-top: 3px solid  #00695c;
 }
+
+.payment-option {
+    font-size: 1.5em;
+}
+
+.shipment-options {
+    font-size: 2em;
+}
