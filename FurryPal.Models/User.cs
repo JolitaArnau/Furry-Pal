@@ -6,6 +6,11 @@ namespace FurryPal.Models
 
     public class User : IdentityUser<string>
     {
+        public User()
+        {
+            this.Purchases = new HashSet<Purchase>();
+        }
+        
         public ICollection<Purchase> Purchases { get; set; }
 
         public ICollection<SubscriptionPurchase> SubscriptionPurchases { get; set; }

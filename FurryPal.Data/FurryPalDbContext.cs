@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FurryPal.Data
@@ -40,6 +42,17 @@ namespace FurryPal.Data
         public DbSet<Keyword> Keywords { get; set; }
 
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
+        //public DbSet<ProductPurchase> ProductsPurchases { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>().HasMany(p => p.Purchases);
+            modelBuilder.Entity<Purchase>().HasMany(p => p.Products);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
 
         public class FurryPalDbContextContextFactory
             : IDesignTimeDbContextFactory<FurryPalDbContext>

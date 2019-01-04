@@ -64,5 +64,17 @@ namespace FurryPal.Web.Controllers
 
             return await Task.Run(() => RedirectToAction("Order"));
         }
+
+        public async Task<IActionResult> RemoveAll()
+        {            
+            shoppingCart.ClearCart();
+
+            return await Task.Run(() => RedirectToAction("Order"));
+        }
+
+        public async Task<IActionResult> Checkout(string id)
+        {
+            return await Task.Run(() => this.RedirectToAction("Buy", "Checkout", new {id}));
+        }
     }
 }

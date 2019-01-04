@@ -1,4 +1,5 @@
 ﻿using System;
+using FurryPal.Services.Checkout;
 
 namespace FurryPal.Web
 {
@@ -57,9 +58,8 @@ namespace FurryPal.Web
             services.AddTransient<IProductAdminService, ProductAdminService>();
             services.AddTransient<IUserAdminService, UserAdminService>();
             services.AddTransient<IProductCustomerService, ProductCustomerService>();
-
-//            services.AddScoped<IShoppingCartService, ShoppingCartService>();
-
+            services.AddTransient<ICheckoutService, CheckoutService>();
+            
             // auto mapper config
 
             var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MapperProfile()));

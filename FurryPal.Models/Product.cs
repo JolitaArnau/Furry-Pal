@@ -10,6 +10,7 @@ namespace FurryPal.Models
         {
             this.Id = Guid.NewGuid().ToString();
             this.Keywords = new HashSet<Keyword>();
+            this.Purchases = new List<Purchase>();
         }
 
         public string Id { get; set; }
@@ -34,6 +35,8 @@ namespace FurryPal.Models
 
         public bool IsAvailableForAutoShipping { get; set; }
 
+        public ICollection<Purchase> Purchases { get; set; }
+      
         public ICollection<Review> Reviews => new HashSet<Review>();
 
         public ICollection<Keyword> Keywords { get; set; }

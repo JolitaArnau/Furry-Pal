@@ -15,7 +15,7 @@
             {
                 <div class="row justify-content-center p-3" style="border: 2px solid #f9f9f9;">
                     <div class="col-md-4">
-                        <img class="img-fluid"  src="@line.Product.ImageUrl"/>
+                        <img class="img-fluid" src="@line.Product.ImageUrl"/>
                     </div>
                     <div class="col-md-4">
                         <b>
@@ -51,9 +51,18 @@
                 <span>€</span> @Model.ShoppingCartTotal
 
                 <div class="text-center">
-                    <a class="btn btn-primary">Check out</a>
+                    <a class="btn btn-primary" asp-route-id="@Model.ShoppingCart.ShoppingCartId" asp-action="Checkout"
+                       asp-controller="ShoppingCart">
+                        Check out
+                    </a>
                 </div>
             </h5>
+            <div class="text-center">
+                <a class="btn btn-primary" asp-action="RemoveAll"
+                   asp-controller="ShoppingCart">
+                    <i class="fas fa-times" style="color: white;"></i>
+                </a>
+            </div>
         }
         else
         {

@@ -16,7 +16,6 @@ namespace FurryPal.Data.Migrations
                     ZipCode = table.Column<string>(nullable: true),
                     CountryName = table.Column<string>(nullable: true),
                     CityName = table.Column<string>(nullable: true),
-                    ProvinceName = table.Column<string>(nullable: true),
                     StreetName = table.Column<string>(nullable: true),
                     HouseNumber = table.Column<int>(nullable: false)
                 },
@@ -53,15 +52,30 @@ namespace FurryPal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sales",
+                name: "Manufacturers",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Type = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sales", x => x.Id);
+                    table.PrimaryKey("PK_Manufacturers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OnSale",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OnSale", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,6 +97,8 @@ namespace FurryPal.Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     AddressId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -90,26 +106,6 @@ namespace FurryPal.Data.Migrations
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Manufacturers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    AddressId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Manufacturers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Manufacturers_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
@@ -244,7 +240,7 @@ namespace FurryPal.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubscriptionPurchases",
+                name: "SubscribedPurchases",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -256,10 +252,35 @@ namespace FurryPal.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubscriptionPurchases", x => x.Id);
+                    table.PrimaryKey("PK_SubscribedPurchases", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubscriptionPurchases_AspNetUsers_CustomerId",
+                        name: "FK_SubscribedPurchases_AspNetUsers_CustomerId",
                         column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Receipts",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    PurchaseId = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Receipts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Receipts_Purchases_PurchaseId",
+                        column: x => x.PurchaseId,
+                        principalTable: "Purchases",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Receipts_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -275,9 +296,10 @@ namespace FurryPal.Data.Migrations
                     Description = table.Column<string>(nullable: true),
                     CategoryId = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: true),
                     ManufacturerId = table.Column<string>(nullable: true),
                     StockQuantity = table.Column<int>(nullable: false),
-                    PurchaseId = table.Column<string>(nullable: true),
+                    IsAvailableForAutoShipping = table.Column<bool>(nullable: false),
                     SaleId = table.Column<string>(nullable: true),
                     SubscriptionPurchaseId = table.Column<string>(nullable: true)
                 },
@@ -297,21 +319,133 @@ namespace FurryPal.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Purchases_PurchaseId",
+                        name: "FK_Products_OnSale_SaleId",
+                        column: x => x.SaleId,
+                        principalTable: "OnSale",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_SubscribedPurchases_SubscriptionPurchaseId",
+                        column: x => x.SubscriptionPurchaseId,
+                        principalTable: "SubscribedPurchases",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Keywords",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    ProductId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Keywords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Keywords_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductsPurchases",
+                columns: table => new
+                {
+                    ProductId = table.Column<string>(nullable: false),
+                    PurchaseId = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsPurchases", x => new { x.ProductId, x.PurchaseId });
+                    table.ForeignKey(
+                        name: "FK_ProductsPurchases_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductsPurchases_Purchases_PurchaseId",
                         column: x => x.PurchaseId,
                         principalTable: "Purchases",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_Sales_SaleId",
-                        column: x => x.SaleId,
-                        principalTable: "Sales",
+                        name: "FK_ProductsPurchases_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    ProductId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCartItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductId = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    ShoppingCartId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItems_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductId = table.Column<string>(nullable: true),
+                    ReviewId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductReviews_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_SubscriptionPurchases_SubscriptionPurchaseId",
-                        column: x => x.SubscriptionPurchaseId,
-                        principalTable: "SubscriptionPurchases",
+                        name: "FK_ProductReviews_Reviews_ReviewId",
+                        column: x => x.ReviewId,
+                        principalTable: "Reviews",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -361,9 +495,19 @@ namespace FurryPal.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Manufacturers_AddressId",
-                table: "Manufacturers",
-                column: "AddressId");
+                name: "IX_Keywords_ProductId",
+                table: "Keywords",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductReviews_ProductId",
+                table: "ProductReviews",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductReviews_ReviewId",
+                table: "ProductReviews",
+                column: "ReviewId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
@@ -376,11 +520,6 @@ namespace FurryPal.Data.Migrations
                 column: "ManufacturerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_PurchaseId",
-                table: "Products",
-                column: "PurchaseId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_SaleId",
                 table: "Products",
                 column: "SaleId");
@@ -391,13 +530,43 @@ namespace FurryPal.Data.Migrations
                 column: "SubscriptionPurchaseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductsPurchases_PurchaseId",
+                table: "ProductsPurchases",
+                column: "PurchaseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsPurchases_UserId",
+                table: "ProductsPurchases",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Purchases_CustomerId",
                 table: "Purchases",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubscriptionPurchases_CustomerId",
-                table: "SubscriptionPurchases",
+                name: "IX_Receipts_PurchaseId",
+                table: "Receipts",
+                column: "PurchaseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Receipts_UserId",
+                table: "Receipts",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_ProductId",
+                table: "Reviews",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartItems_ProductId",
+                table: "ShoppingCartItems",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscribedPurchases_CustomerId",
+                table: "SubscribedPurchases",
                 column: "CustomerId");
         }
 
@@ -419,10 +588,31 @@ namespace FurryPal.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Keywords");
+
+            migrationBuilder.DropTable(
+                name: "ProductReviews");
+
+            migrationBuilder.DropTable(
+                name: "ProductsPurchases");
+
+            migrationBuilder.DropTable(
+                name: "Receipts");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCartItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "Purchases");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Categories");
@@ -431,13 +621,10 @@ namespace FurryPal.Data.Migrations
                 name: "Manufacturers");
 
             migrationBuilder.DropTable(
-                name: "Purchases");
+                name: "OnSale");
 
             migrationBuilder.DropTable(
-                name: "Sales");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionPurchases");
+                name: "SubscribedPurchases");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

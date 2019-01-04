@@ -100,6 +100,9 @@ namespace FurryPal.Web.Areas.Identity.Pages.Account.Manage
                 userAddress.ZipCode = Input.ZipCode;
                 userAddress.StreetName = Input.StreetName;
                 userAddress.HouseNumber = Input.HouseNumber;
+
+                user.Address = userAddress;
+                
                 _dbContext.SaveChanges();
             }
 

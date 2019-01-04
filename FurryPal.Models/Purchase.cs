@@ -10,6 +10,7 @@ namespace FurryPal.Models
         public Purchase()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Products = new List<Product>();
         }
         
         public string Id { get; set; }
@@ -20,8 +21,8 @@ namespace FurryPal.Models
 
         public DateTime OrderDate { get; set; }
 
-        public ICollection<Product> Products { get; set; } = new List<Product>();
-
+        public ICollection<Product> Products { get; set; }
+       
         public decimal TotalOrderPrice { get; set; }
          
         public PurchaseStatus Status { get; set; }

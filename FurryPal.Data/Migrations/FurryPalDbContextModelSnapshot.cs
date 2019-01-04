@@ -158,6 +158,8 @@ namespace FurryPal.Data.Migrations
 
                     b.Property<DateTime>("OrderDate");
 
+                    b.Property<string>("ProductId");
+
                     b.Property<int>("Status");
 
                     b.Property<decimal>("TotalOrderPrice");
@@ -165,6 +167,8 @@ namespace FurryPal.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Purchases");
                 });
@@ -475,6 +479,10 @@ namespace FurryPal.Data.Migrations
                     b.HasOne("FurryPal.Models.User", "Customer")
                         .WithMany("Purchases")
                         .HasForeignKey("CustomerId");
+
+                    b.HasOne("FurryPal.Models.Product")
+                        .WithMany("Purchases")
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("FurryPal.Models.Receipt", b =>
