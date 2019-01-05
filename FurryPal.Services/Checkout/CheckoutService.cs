@@ -22,15 +22,15 @@ namespace FurryPal.Services.Checkout
 
         public async Task CreatePurchase(string shoppingCartId, string userId)
         {
-            var user = this.dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(userId)).Result;
+            var user = await this.dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(userId));
 
             // TODO: users should be able to add products to their current purchase without creating a new purchase object 
 
             var userShoppingCartItems = this.dbContext.ShoppingCartItems.Where(s =>
                 s.ShoppingCartId.Equals(shoppingCartId));
 
-            var purchase = new Purchase {OrderDate = DateTime.Now, Customer = user, CustomerId = userId};
-
+            var purchase = new Purchase
+                {OrderDate = DateTime.Now, Customer = user, CustomerId = userId, IsBought = false};
 
             foreach (var shoppingCartItem in userShoppingCartItems)
             {
@@ -46,6 +46,18 @@ namespace FurryPal.Services.Checkout
             user.Purchases.Add(purchase);
 
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task ThankYou(string userId)
+        {
+            ;
+            
+            var user = await this.dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(userId));
+
+            var purchase = user.Purchases.FirstOrDefault(p => p.Customer.Id.Equals(user.Id));
+
+            if (purchase != null) purchase.IsBought = true;
+            
         }
     }
 }

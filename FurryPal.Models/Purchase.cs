@@ -26,5 +26,7 @@ namespace FurryPal.Models
         public decimal TotalOrderPrice { get; set; }
          
         public PurchaseStatus Status { get; set; }
+
+        public bool IsBought { get; set; }
     }
 }

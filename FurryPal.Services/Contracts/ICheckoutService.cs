@@ -6,5 +6,7 @@ namespace FurryPal.Services.Contracts
     public interface ICheckoutService
     {
         Task CreatePurchase(string shoppingCartId, string userId);
+
+        Task ThankYou(string userId);
     }
 }

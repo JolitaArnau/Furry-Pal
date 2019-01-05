@@ -58,5 +58,24 @@ namespace FurryPal.Web.Controllers
 
             return LocalRedirect("/Identity/Account/Manage/AddressAndBillingInformation");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ThankYou()
+        {
+            var user = await this.userManager.GetUserAsync(User);
+            ;
+            var userWithAddress = this.dbContext.Users
+                .Where(u => u.Id.Equals(user.Id) && u.AddressId.Equals(user.AddressId))
+                .Include(u => u.Address)
+                .Include(p => p.Purchases)
+                .ToList()
+                .First();
+
+            await this.checkoutService.ThankYou(user.Id);
+
+            this.shoppingCart.ClearCart();
+
+            return await Task.Run(() => this.View());
+        }
     }
 }

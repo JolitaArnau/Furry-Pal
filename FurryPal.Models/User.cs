@@ -8,7 +8,7 @@ namespace FurryPal.Models
     {
         public User()
         {
-            this.Purchases = new HashSet<Purchase>();
+            this.Purchases = new List<Purchase>();
         }
         
         public ICollection<Purchase> Purchases { get; set; }
