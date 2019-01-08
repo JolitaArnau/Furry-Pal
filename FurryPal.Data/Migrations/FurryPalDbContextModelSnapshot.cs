@@ -39,6 +39,28 @@ namespace FurryPal.Data.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("FurryPal.Models.AutoShippingPurchase", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CustomerId");
+
+                    b.Property<DateTime>("InitialOrderDate");
+
+                    b.Property<DateTime>("NextReorderDispatchDate");
+
+                    b.Property<int>("ReorderInterval");
+
+                    b.Property<decimal>("TotalOrderPrice");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("SubscribedPurchases");
+                });
+
             modelBuilder.Entity("FurryPal.Models.Category", b =>
                 {
                     b.Property<string>("Id")
@@ -107,13 +129,7 @@ namespace FurryPal.Data.Migrations
 
                     b.Property<string>("ProductCode");
 
-                    b.Property<string>("PurchaseId");
-
-                    b.Property<string>("SaleId");
-
                     b.Property<int>("StockQuantity");
-
-                    b.Property<string>("SubscriptionPurchaseId");
 
                     b.HasKey("Id");
 
@@ -121,32 +137,30 @@ namespace FurryPal.Data.Migrations
 
                     b.HasIndex("ManufacturerId");
 
-                    b.HasIndex("PurchaseId");
-
-                    b.HasIndex("SaleId");
-
-                    b.HasIndex("SubscriptionPurchaseId");
-
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("FurryPal.Models.ProductReview", b =>
+            modelBuilder.Entity("FurryPal.Models.ProductPurchase", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AutoShippingPurchaseId");
+
                     b.Property<string>("ProductId");
 
-                    b.Property<string>("ReviewId");
+                    b.Property<string>("PurchaseId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AutoShippingPurchaseId");
+
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("ReviewId");
+                    b.HasIndex("PurchaseId");
 
-                    b.ToTable("ProductReviews");
+                    b.ToTable("ProductsPurchases");
                 });
 
             modelBuilder.Entity("FurryPal.Models.Purchase", b =>
@@ -154,75 +168,21 @@ namespace FurryPal.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CustomerId");
-
                     b.Property<bool>("IsBought");
 
                     b.Property<DateTime>("OrderDate");
-
-                    b.Property<string>("ProductId");
 
                     b.Property<int>("Status");
 
                     b.Property<decimal>("TotalOrderPrice");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Purchases");
-                });
-
-            modelBuilder.Entity("FurryPal.Models.Receipt", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("PurchaseId");
-
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PurchaseId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Receipts");
-                });
-
-            modelBuilder.Entity("FurryPal.Models.Review", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
-
-                    b.Property<string>("ProductId");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("FurryPal.Models.Sale", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OnSale");
+                    b.ToTable("Purchases");
                 });
 
             modelBuilder.Entity("FurryPal.Models.ShoppingCartItem", b =>
@@ -242,28 +202,6 @@ namespace FurryPal.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("FurryPal.Models.SubscriptionPurchase", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CustomerId");
-
-                    b.Property<DateTime>("InitialOrderDate");
-
-                    b.Property<DateTime>("NextReorderDispatchDate");
-
-                    b.Property<int>("ReorderInterval");
-
-                    b.Property<decimal>("TotalOrderPrice");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("SubscribedPurchases");
                 });
 
             modelBuilder.Entity("FurryPal.Models.User", b =>
@@ -435,6 +373,13 @@ namespace FurryPal.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("FurryPal.Models.AutoShippingPurchase", b =>
+                {
+                    b.HasOne("FurryPal.Models.User", "Customer")
+                        .WithMany("SubscriptionPurchases")
+                        .HasForeignKey("CustomerId");
+                });
+
             modelBuilder.Entity("FurryPal.Models.Keyword", b =>
                 {
                     b.HasOne("FurryPal.Models.Product")
@@ -451,58 +396,28 @@ namespace FurryPal.Data.Migrations
                     b.HasOne("FurryPal.Models.Manufacturer", "Manufacturer")
                         .WithMany()
                         .HasForeignKey("ManufacturerId");
-
-                    b.HasOne("FurryPal.Models.Purchase")
-                        .WithMany("Products")
-                        .HasForeignKey("PurchaseId");
-
-                    b.HasOne("FurryPal.Models.Sale")
-                        .WithMany("ProductsOnSale")
-                        .HasForeignKey("SaleId");
-
-                    b.HasOne("FurryPal.Models.SubscriptionPurchase")
-                        .WithMany("Products")
-                        .HasForeignKey("SubscriptionPurchaseId");
                 });
 
-            modelBuilder.Entity("FurryPal.Models.ProductReview", b =>
+            modelBuilder.Entity("FurryPal.Models.ProductPurchase", b =>
                 {
+                    b.HasOne("FurryPal.Models.AutoShippingPurchase")
+                        .WithMany("ProductPurchases")
+                        .HasForeignKey("AutoShippingPurchaseId");
+
                     b.HasOne("FurryPal.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("ProductPurchases")
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("FurryPal.Models.Review", "Review")
-                        .WithMany()
-                        .HasForeignKey("ReviewId");
+                    b.HasOne("FurryPal.Models.Purchase", "Purchase")
+                        .WithMany("ProductPurchases")
+                        .HasForeignKey("PurchaseId");
                 });
 
             modelBuilder.Entity("FurryPal.Models.Purchase", b =>
                 {
-                    b.HasOne("FurryPal.Models.User", "Customer")
+                    b.HasOne("FurryPal.Models.User", "User")
                         .WithMany("Purchases")
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("FurryPal.Models.Product")
-                        .WithMany("Purchases")
-                        .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("FurryPal.Models.Receipt", b =>
-                {
-                    b.HasOne("FurryPal.Models.Purchase", "Purchase")
-                        .WithMany()
-                        .HasForeignKey("PurchaseId");
-
-                    b.HasOne("FurryPal.Models.User")
-                        .WithMany("Receipts")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("FurryPal.Models.Review", b =>
-                {
-                    b.HasOne("FurryPal.Models.Product")
-                        .WithMany("Reviews")
-                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("FurryPal.Models.ShoppingCartItem", b =>
@@ -510,13 +425,6 @@ namespace FurryPal.Data.Migrations
                     b.HasOne("FurryPal.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
-                });
-
-            modelBuilder.Entity("FurryPal.Models.SubscriptionPurchase", b =>
-                {
-                    b.HasOne("FurryPal.Models.User", "Customer")
-                        .WithMany("SubscriptionPurchases")
-                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("FurryPal.Models.User", b =>

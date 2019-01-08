@@ -10,23 +10,23 @@ namespace FurryPal.Models
         public Purchase()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Products = new List<Product>();
+            this.ProductPurchases = new List<ProductPurchase>();
         }
         
         public string Id { get; set; }
-        
-        [ForeignKey("User")]
-        public string CustomerId { get; set; }
-        public User Customer { get; set; }
 
         public DateTime OrderDate { get; set; }
-
-        public ICollection<Product> Products { get; set; }
        
         public decimal TotalOrderPrice { get; set; }
          
         public PurchaseStatus Status { get; set; }
-
+        
         public bool IsBought { get; set; }
+        
+        public ICollection<ProductPurchase> ProductPurchases { get; set; }
+
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public User User { get; set; }
     }
 }

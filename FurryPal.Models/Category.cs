@@ -1,6 +1,5 @@
 namespace FurryPal.Models
 {
-    using System.Collections.Generic;
     using System;
 
     public class Category

@@ -1,11 +1,11 @@
-@model FurryPal.Web.ViewModels.Checkout.UserCheckoutBindingModel
+@using FurryPal.Models.Enums
+@model FurryPal.Web.ViewModels.Checkout.UserTryCheckOutBindingModel
 @{
     ViewData["Title"] = "Check Out";
 }
 
 
 <h2 class="text-center">@ViewData["Title"]</h2>
-
 <div class="container m-5">
     <div class="row">
         <div class="col-md-6" style="border: 2px solid #f9f9f9;">
@@ -34,32 +34,19 @@
             </form>
         </div>
         <div class="col-md-2"></div>
-        <div class="col-md-4" style="border: 2px solid #f9f9f9;">
-            <h4>Your Order</h4>
-            @foreach (var products in @Model.Purchases.Select(x => x.Products))
-            {
-                foreach (var product in products)
-                {
-                    <ul style="list-style: none">
-
-                        <li>@product.Name</li>
-                        <li>@product.Price</li>
-                        <li>
-                            <img class="img-thumbnail" width="200em" height="400em" alt="product-img" src="@product.ImageUrl"/>
-                        </li>
-
-                    </ul>
-                }
-            }
-        </div>
-
-        <div class="text-center">
-            <button class="btn btn-primary">
-                <a asp-controller="CheckOut" asp-action="ThankYou">Buy</a>
-            </button>
+        <div class="col-md-2 m-5" style="border: 2px solid #f9f9f9;">
+            <p>Order Date: @Model.Purchases.Select(p => p.OrderDate.ToShortDateString()).Last()</p>
+            <p>Total Order Price: @Model.Purchases.Select(p => p.TotalOrderPrice).Last() €</p>
+            <p>Status: In Process</p>
         </div>
     </div>
 </div>
+<div class="text-center m-5">
+    <button class="btn btn-primary">
+        <a asp-controller="CheckOut" asp-action="ThankYou">Buy</a>
+    </button>
+</div>
+
 
 
 

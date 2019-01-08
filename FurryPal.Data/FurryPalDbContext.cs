@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -29,26 +30,32 @@ namespace FurryPal.Data
 
         public DbSet<Purchase> Purchases { get; set; }
 
-        public DbSet<SubscriptionPurchase> SubscribedPurchases { get; set; }
-
-        public DbSet<Sale> OnSale { get; set; }
-
-        public DbSet<ProductReview> ProductReviews { get; set; }
-
-        public DbSet<Receipt> Receipts { get; set; }
-
-        public DbSet<Review> Reviews { get; set; }
+        public DbSet<AutoShippingPurchase> SubscribedPurchases { get; set; }
 
         public DbSet<Keyword> Keywords { get; set; }
 
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
-        //public DbSet<ProductPurchase> ProductsPurchases { get; set; }
+        public DbSet<ProductPurchase> ProductsPurchases { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().HasMany(p => p.Purchases);
-            modelBuilder.Entity<Purchase>().HasMany(p => p.Products);
+            modelBuilder.Entity<ProductPurchase>()
+                .HasKey(pp => pp.Id);
+
+            modelBuilder.Entity<ProductPurchase>()
+                .HasOne(p => p.Product)
+                .WithMany(p => p.ProductPurchases)
+                .HasForeignKey(p => p.ProductId);
+
+            modelBuilder.Entity<ProductPurchase>()
+                .HasOne(p => p.Purchase)
+                .WithMany(p => p.ProductPurchases)
+                .HasForeignKey(p => p.PurchaseId);
+
+            modelBuilder.Entity<Purchase>()
+                .HasOne(u => u.User)
+                .WithMany(p => p.Purchases);
 
             base.OnModelCreating(modelBuilder);
         }

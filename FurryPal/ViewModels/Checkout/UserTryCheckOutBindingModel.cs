@@ -4,14 +4,8 @@ using FurryPal.Models;
 
 namespace FurryPal.Web.ViewModels.Checkout
 {
-    public class UserCheckoutBindingModel
+    public class UserTryCheckOutBindingModel
     {
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string Email { get; set; }
-
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
 

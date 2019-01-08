@@ -7,30 +7,28 @@ namespace FurryPal.Models
     using Common;
     using Enums;
 
-    public class SubscriptionPurchase
+    public class AutoShippingPurchase
     {
-        public SubscriptionPurchase()
+        public AutoShippingPurchase()
         {
             this.Id = Guid.NewGuid().ToString();
         }
         
         public string Id { get; set; }
-
-        [ForeignKey("User")]
-        public string CustomerId { get; set; }
-        public User Customer { get; set; }
-
+      
         public DateTime InitialOrderDate { get; set; }
 
         public ReorderInterval ReorderInterval { get; set; }
 
         public DateTime NextReorderDispatchDate { get; set; }
 
-        public ICollection<Product> Products { get; set; } = new List<Product>();
-
-        [NotMapped]
-        public decimal Discount => Products.Select(p => p.Price).Sum() * OrderDiscountConstants.SubscriptionDiscount;
+        public ICollection<ProductPurchase> ProductPurchases { get; set; }
 
         public decimal TotalOrderPrice { get; set; }
+        
+        [ForeignKey("User")]
+        public string CustomerId { get; set; }
+        public User Customer { get; set; }
+
     }
 }

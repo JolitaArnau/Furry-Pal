@@ -1,0 +1,36 @@
+@* @model FurryPal.Web.ViewModels.Checkout.UserTryCheckOutBindingModel *@
+@* *@
+@* <div class="container m-5"> *@
+@*     $1$TODO: edit according to new db scheme#1# *@
+@* *@
+@*     <h4>Your Orders</h4> *@
+@*     @if (@Model.Purchases.Any(p => p.IsBought)) *@
+@*     { *@
+@* $1$         foreach (var products in @Model.Purchases.Select(x => x.Products)) #1# *@
+@* $1$         { #1# *@
+@* $1$             <p>@Model.Purchases.Select(x => x.OrderDate).ToString()</p> #1# *@
+@* $1$ #1# *@
+@* $1$             foreach (var product in products) #1# *@
+@* $1$             { #1# *@
+@* $1$                 <ul style="list-style: none"> #1# *@
+@* $1$ #1# *@
+@* $1$                     <li>@product.Name</li> #1# *@
+@* $1$                     <li>@product.Price</li> #1# *@
+@* $1$                     <li> #1# *@
+@* $1$                         <img class="img-thumbnail" width="200em" height="400em" alt="product-img" src="@product.ImageUrl"/> #1# *@
+@* $1$                     </li> #1# *@
+@* $1$                 </ul> #1# *@
+@* $1$             } #1# *@
+@* $1$         } #1# *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <h2 class="text-center"> *@
+@*             There are currently no items in your shopping cart *@
+@* *@
+@*         </h2> *@
+@*         <h2 class="text-center" style="font-size: 400px;"> *@
+@*             <i class="far fa-sad-tear"></i> *@
+@*         </h2> *@
+@*     } *@
+@* </div> *@

@@ -10,12 +10,10 @@ namespace FurryPal.Models
         {
             this.Purchases = new List<Purchase>();
         }
-        
-        public ICollection<Purchase> Purchases { get; set; }
 
-        public ICollection<SubscriptionPurchase> SubscriptionPurchases { get; set; }
+        public ICollection<Purchase> Purchases { get; set; } 
 
-        public ICollection<Receipt> Receipts { get; set; }
+        public ICollection<AutoShippingPurchase> SubscriptionPurchases { get; set; }
 
         public string FirstName { get; set; }
 

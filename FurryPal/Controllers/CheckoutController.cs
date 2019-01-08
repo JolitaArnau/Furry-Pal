@@ -45,14 +45,8 @@ namespace FurryPal.Web.Controllers
                 userWithAddress.Address.StreetName != null && userWithAddress.Address.HouseNumber != 0)
             {
                 await this.checkoutService.CreatePurchase(id, user.Id);
-
-                var userCheckoutViewModel = mapper.Map<User, UserCheckoutBindingModel>(userWithAddress);
-
-                //TODO: Implement a buy method which in the current context could set a boolean to true in the purchase model(requires db schema update)
-                //TODO: Clear the cart only when the items are actually bought (when the 'bought' boolean is set to true)
-                //TODO: Redirect to page where the user can see a successful message that all products were bought and he has no more money for beer!!!
-                //this.shoppingCart.ClearCart();
-
+                var userCheckoutViewModel = mapper.Map<User, UserTryCheckOutBindingModel>(userWithAddress);
+                this.shoppingCart.ClearCart();
                 return await Task.Run(() => this.View(userCheckoutViewModel));
             }
 
@@ -63,15 +57,14 @@ namespace FurryPal.Web.Controllers
         public async Task<IActionResult> ThankYou()
         {
             var user = await this.userManager.GetUserAsync(User);
-            ;
-            var userWithAddress = this.dbContext.Users
-                .Where(u => u.Id.Equals(user.Id) && u.AddressId.Equals(user.AddressId))
-                .Include(u => u.Address)
+
+            var userWithPurchase = this.dbContext.Users
+                .Where(u => u.Id.Equals(user.Id))
                 .Include(p => p.Purchases)
                 .ToList()
                 .First();
 
-            await this.checkoutService.ThankYou(user.Id);
+            await this.checkoutService.ThankYou(userWithPurchase.Id);
 
             this.shoppingCart.ClearCart();
 
