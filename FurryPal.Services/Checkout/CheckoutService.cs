@@ -18,7 +18,8 @@ namespace FurryPal.Services.Checkout
         private readonly FurryPalDbContext dbContext;
         private readonly ShoppingCart.ShoppingCart cart;
 
-        public CheckoutService(UserManager<User> userManager, FurryPalDbContext dbContext, ShoppingCart.ShoppingCart cart)
+        public CheckoutService(UserManager<User> userManager, FurryPalDbContext dbContext,
+            ShoppingCart.ShoppingCart cart)
         {
             this.userManager = userManager;
             this.dbContext = dbContext;
@@ -62,7 +63,7 @@ namespace FurryPal.Services.Checkout
 
                     product.StockQuantity--;
                 }
-                
+
                 this.cart.ClearCart();
             }
             else
@@ -89,9 +90,8 @@ namespace FurryPal.Services.Checkout
                         this.dbContext.ProductsPurchases.Add(productPurchase);
 
                         userPurchase.TotalOrderPrice += shoppingCartItem.Product.Price * shoppingCartItem.Quantity;
-                        
+
                         product.StockQuantity--;
-                        
                     }
                 }
             }
@@ -100,12 +100,10 @@ namespace FurryPal.Services.Checkout
         }
 
         public async Task ThankYou(string userId)
-        {            
+        {
             var user = await this.dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(userId));
 
-            var purchase = user.Purchases.FirstOrDefault(p => p.User.Id.Equals(user.Id));
-
-            if (purchase != null) purchase.IsBought = true;
+            if (user.Purchases.Last() != null) user.Purchases.Last().IsBought = true;
 
             await this.dbContext.SaveChangesAsync();
         }

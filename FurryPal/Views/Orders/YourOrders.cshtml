@@ -1,8 +1,35 @@
+@model IEnumerable<FurryPal.Web.ViewModels.Orders.YourOrdersViewModel>
+@{
 
-<h2 class="text-center">
-    There are currently no items in your shopping cart
+    ViewData["Title"] = "Your Orders";
+}
 
-</h2>
-<h2 class="text-center" style="font-size: 400px;">
-    <i class="far fa-sad-tear"></i>
-</h2>
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="container m-5">
+    @foreach (var xx in @Model)
+    {
+        foreach (var yy in xx.ProductPurchases)
+        {
+            <div class="row justify-content-center p-3" style="border: 2px solid #f9f9f9;">
+                <div class="col-md-4">
+                    <img class="img-fluid" src="@yy.Product.ImageUrl"/>
+                </div>
+                <div class="col-md-4">
+                    <b>
+                        <h4 id="product-name-details-page">@yy.Product.Name</h4>
+                    </b>
+                    <h6>
+                        Product Price:
+                        <span id="price">@yy.Product.Price €</span>
+                    </h6>
+                </div>
+            </div>
+        }
+        <p>Order Date: @xx.OrderDate</p>
+        <p>Total Order Price: @xx.TotalOrderPrice €</p>
+        <hr style="background: #f9f9f9; height: 0.01rem;"/>
+    }
+</div>
+
+

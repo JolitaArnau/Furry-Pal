@@ -1,3 +1,5 @@
+using FurryPal.Web.ViewModels.Orders;
+
 namespace FurryPal.Web.Mapper
 {
     using AutoMapper;
@@ -8,7 +10,7 @@ namespace FurryPal.Web.Mapper
     using FurryPal.Web.Areas.Admin.ViewModels.Users;
     using ViewModels.Checkout;
     using ViewModels.Products;
-    
+
     public class MapperProfile : Profile
     {
         public MapperProfile()
@@ -46,6 +48,12 @@ namespace FurryPal.Web.Mapper
                 .ForMember(u => u.StreetName, x => x.MapFrom(a => a.Address.StreetName))
                 .ForMember(u => u.HouseNumber, x => x.MapFrom(a => a.Address.HouseNumber))
                 .ForMember(u => u.Purchases, x => x.MapFrom(p => p.Purchases));
+
+            this.CreateMap<Purchase, YourOrdersViewModel>()
+                .ForMember(p => p.IsBought, x => x.MapFrom(y => y.IsBought))
+                .ForMember(p => p.OrderDate, x => x.MapFrom(y => y.OrderDate))
+                .ForMember(p => p.TotalOrderPrice, x => x.MapFrom(y => y.TotalOrderPrice))
+                .ForMember(p => p.ProductPurchases, x => x.MapFrom(y => y.ProductPurchases));
         }
     }
 }
