@@ -9,10 +9,14 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm" class="navbar-nav ml-auto">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hi, @UserManager.GetUserAsync(User).Result.FirstName</a>
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" data-toggle="tooltip" data-placement="bottom" title="profile">
+                    <i class="far fa-user-circle" style="font-size: 1.5em;"></i>
+                </a>
             </li>
             <li class="nav-item">
-                <button type="submit" class="btn">logout</button>
+                <button data-toggle="tooltip" data-placement="bottom" title="logout" type="submit" class="btn">
+                    <i class="fas fa-sign-out-alt" style="font-size: 1.5em;"></i>
+                </button>
             </li>
         </ul>
     </form>
@@ -39,3 +43,12 @@
         </li>
     </ul>
 }
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
