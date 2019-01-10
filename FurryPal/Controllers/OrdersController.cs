@@ -1,16 +1,16 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using FurryPal.Data;
-using FurryPal.Models;
-using FurryPal.Web.ViewModels.Orders;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 namespace FurryPal.Web.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using Data;
+    using FurryPal.Models;
+    using ViewModels.Orders;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
     public class OrdersController : BaseController
     {
         private FurryPalDbContext dbContext { get; set; }
@@ -33,10 +33,10 @@ namespace FurryPal.Web.Controllers
                 .ThenInclude(p => p.Product)
                 .ToArray();
 
-            var userCheckoutViewModel =
+            var purchasesViewModel =
                 this.mapper.Map<Purchase[], IEnumerable<YourOrdersViewModel>>(purchases);
 
-            return await Task.Run(() => this.View(userCheckoutViewModel));
+            return await Task.Run(() => this.View(purchasesViewModel));
         }
     }
 }

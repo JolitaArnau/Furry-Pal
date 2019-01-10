@@ -36,11 +36,11 @@
                         You can add it to your Subscription and get it delivered to your doorstep in a regular period of time!
                         <br/>
                         <br/>
-                        <button class="btn btn-warning">
-                            <a asp-route-id="@Model.Id">
-                                Add To Subsription
-                            </a>
-                        </button>
+                        <form method="post" asp-route-id="@Model.Id" asp-controller="AutoShippingPurchases" asp-action="Orders">
+                            <button class="btn btn-warning" type="submit">
+                                Add To Subscription
+                            </button>
+                        </form>
                     </h6>
                 }
 

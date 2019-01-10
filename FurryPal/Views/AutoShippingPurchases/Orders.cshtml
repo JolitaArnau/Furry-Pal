@@ -1,7 +1,8 @@
-@model IEnumerable<FurryPal.Web.ViewModels.Orders.YourOrdersViewModel>
+@model IEnumerable<FurryPal.Web.ViewModels.AutoShipping.AutoShippingPurchasesViewModel>
+
 @{
 
-    ViewData["Title"] = "Your Orders";
+    ViewData["Title"] = "Your AutoShipping Orders";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
@@ -38,10 +39,8 @@
                 </div>
             </div>
         }
-        <p>Order Date: @xx.OrderDate</p>
-        <p>Total Order Price: @xx.TotalOrderPrice €</p>
+        <p>Next Automatic Order Date: <span style="color: green"><b>@xx.NextReorderDispatchDate.ToShortDateString()</b></span></p>
+        <p>Total Order Price: <span id="price">@xx.TotalOrderPrice €</span></p>
         <hr style="background: #f9f9f9; height: 0.01rem;"/>
     }
 </div>
-
-

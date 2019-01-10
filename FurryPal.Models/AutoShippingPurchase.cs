@@ -12,6 +12,7 @@ namespace FurryPal.Models
         public AutoShippingPurchase()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.ProductPurchases = new List<ProductPurchase>();
         }
         
         public string Id { get; set; }

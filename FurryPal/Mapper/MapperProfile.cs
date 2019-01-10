@@ -1,3 +1,4 @@
+using FurryPal.Web.ViewModels.AutoShipping;
 using FurryPal.Web.ViewModels.Orders;
 
 namespace FurryPal.Web.Mapper
@@ -52,6 +53,11 @@ namespace FurryPal.Web.Mapper
             this.CreateMap<Purchase, YourOrdersViewModel>()
                 .ForMember(p => p.IsBought, x => x.MapFrom(y => y.IsBought))
                 .ForMember(p => p.OrderDate, x => x.MapFrom(y => y.OrderDate))
+                .ForMember(p => p.TotalOrderPrice, x => x.MapFrom(y => y.TotalOrderPrice))
+                .ForMember(p => p.ProductPurchases, x => x.MapFrom(y => y.ProductPurchases));
+            
+            this.CreateMap<AutoShippingPurchase, AutoShippingPurchasesViewModel>()
+                .ForMember(p => p.NextReorderDispatchDate, x => x.MapFrom(y => y.NextReorderDispatchDate))
                 .ForMember(p => p.TotalOrderPrice, x => x.MapFrom(y => y.TotalOrderPrice))
                 .ForMember(p => p.ProductPurchases, x => x.MapFrom(y => y.ProductPurchases));
         }
